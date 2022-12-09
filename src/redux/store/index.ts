@@ -2,6 +2,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import localStorage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import homeReducer from "../reducers/HomeReducer";
+import searchReducer from "../reducers/SearchReducer";
 
 const persistConfig = {
   key: "root",
@@ -10,6 +11,7 @@ const persistConfig = {
 
 const bigReducer = combineReducers({
   home: homeReducer,
+  search: searchReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, bigReducer);

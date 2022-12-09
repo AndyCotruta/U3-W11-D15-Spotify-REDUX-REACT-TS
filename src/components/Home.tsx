@@ -42,37 +42,35 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
-      <div className="center-section">
-        <div className="good-morning-section">
-          <h2 className="px-4 my-4">Good Morning</h2>
+    <div className="center-section">
+      <div className="good-morning-section">
+        <h2 className="px-4 my-4">Good Morning</h2>
+        <div className="good-morning row mx-1">
+          {" "}
+          {goodMorning.slice(0, 6).map((album: MainAlbum) => (
+            <AlbumCard albumData={album} key={album.id} />
+          ))}
+        </div>
+      </div>
+      <div className="recently-played-section">
+        <h2 className="px-4">Recently Played</h2>
+        <div className="recently-played row mx-1">
           <div className="good-morning row mx-1">
             {" "}
-            {goodMorning.slice(0, 6).map((album: MainAlbum) => (
+            {recentlyPlayed.slice(0, 6).map((album: MainAlbum) => (
               <AlbumCard albumData={album} key={album.id} />
             ))}
           </div>
         </div>
-        <div className="recently-played-section">
-          <h2 className="px-4">Recently Played</h2>
-          <div className="recently-played row mx-1">
-            <div className="good-morning row mx-1">
-              {" "}
-              {recentlyPlayed.slice(0, 6).map((album: MainAlbum) => (
-                <AlbumCard albumData={album} key={album.id} />
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className="shows-to-try-section">
-          <h2 className="px-4">Shows To Try</h2>
-          <div className="shows-to-try row mx-1">
-            <div className="good-morning row mx-1">
-              {" "}
-              {showsToTry.slice(0, 6).map((album: MainAlbum) => (
-                <AlbumCard albumData={album} key={album.id} />
-              ))}
-            </div>
+      </div>
+      <div className="shows-to-try-section">
+        <h2 className="px-4">Shows To Try</h2>
+        <div className="shows-to-try row mx-1">
+          <div className="good-morning row mx-1">
+            {" "}
+            {showsToTry.slice(0, 6).map((album: MainAlbum) => (
+              <AlbumCard albumData={album} key={album.id} />
+            ))}
           </div>
         </div>
       </div>
