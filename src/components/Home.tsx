@@ -2,10 +2,12 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { HomeType } from "../redux/types/HomeType";
 import { fetchAlbumAction } from "../redux/actions/actions";
+import { Row } from "react-bootstrap";
+import AlbumCard from "./AlbumCard";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const goodMorning = useSelector<HomeType>((state) => state.home.goodMorning);
+  const goodMorning = useSelector((state: HomeType) => state.home.goodMorning);
   const query1: string = "goodmorning";
   const endPoint: string =
     "https://striveschool-api.herokuapp.com/api/deezer/search?q=" + query1;
@@ -25,6 +27,10 @@ const Home = () => {
   return (
     <div>
       <h1>This is the homepage</h1>
+
+      {goodMorning.map((album) => {
+        <AlbumCard key={album.id} />;
+      })}
     </div>
   );
 };
