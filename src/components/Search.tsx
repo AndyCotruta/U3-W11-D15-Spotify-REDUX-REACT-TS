@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ADD_BROWSE_ALL, fetchAlbumAction } from "../redux/actions/actions";
 import { SearchType } from "../redux/types/SearchType";
+import BannerNav from "./BannerNav";
 import BrowseAllCard from "./BrowseAllCard";
 
 const Search = () => {
@@ -25,7 +26,9 @@ const Search = () => {
 
   return (
     <div className="center-section">
-      <h2 className="px-3 py-3">Browse All</h2>
+      <BannerNav />
+
+      <h2 className="px-3 mt-5 pt-4">Browse All</h2>
       <div className="browse-all row mx-1">
         {browseAll.map((album, i) => (
           <BrowseAllCard browseData={album} key={album.id} index={i} />

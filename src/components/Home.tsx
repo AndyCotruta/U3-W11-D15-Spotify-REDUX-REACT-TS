@@ -10,6 +10,7 @@ import {
 import { Row } from "react-bootstrap";
 import AlbumCard from "./AlbumCard";
 import { MainAlbum } from "../redux/types/Album";
+import BannerNav from "./BannerNav";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -43,8 +44,9 @@ const Home = () => {
 
   return (
     <div className="center-section">
+      <BannerNav />
       <div className="good-morning-section">
-        <h2 className="px-4 my-4">Good Morning</h2>
+        <h2 className="px-4 mt-5">Good Morning</h2>
         <div className="good-morning row mx-1">
           {" "}
           {goodMorning.slice(0, 6).map((album: MainAlbum) => (

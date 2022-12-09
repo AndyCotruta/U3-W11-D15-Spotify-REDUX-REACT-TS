@@ -11,7 +11,7 @@ const AlbumCard = ({ albumData }: AlbumProps) => {
     <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4">
       <Card>
         <Card.Img
-          className="refference"
+          className="cardImg"
           variant="top"
           src={albumData.album.cover}
         />
