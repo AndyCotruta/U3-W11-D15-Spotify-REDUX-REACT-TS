@@ -360,3 +360,28 @@ h2 {
 .greenPlayBtn:hover {
   transform: scale(1.1);
 }
+
+.browse-all-card {
+  min-height: 150px;
+  aspect-ratio: 1/1;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.browse-all-card:hover {
+  transform: scale(1.05);
+}
+
+.browse-all-img {
+  height: 100px;
+  max-width: 100px;
+  position: absolute;
+  transform: rotate(0.07turn) translateX(16%);
+  bottom: 0;
+  right: 0;
+}

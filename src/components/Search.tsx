@@ -25,7 +25,7 @@ const Search = () => {
 
   return (
     <div className="center-section">
-      <h2>Browse All</h2>
+      <h2 className="px-3 py-3">Browse All</h2>
       <div className="browse-all row mx-1">
         {browseAll.map((album, i) => (
           <BrowseAllCard browseData={album} key={album.id} index={i} />
