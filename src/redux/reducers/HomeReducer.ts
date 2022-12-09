@@ -1,6 +1,10 @@
 import { Action } from "@remix-run/router";
 import { AnyAction } from "redux";
-import { ADD_GOOD_MORNING } from "../actions/actions";
+import {
+  ADD_GOOD_MORNING,
+  ADD_RECENTLY_PLAYED,
+  ADD_SHOWS_TO_TRY,
+} from "../actions/actions";
 import { HomeType } from "../types/HomeType";
 
 const initialState: HomeType = {
@@ -17,6 +21,20 @@ const homeReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         goodMorning: action.payload,
+      };
+    }
+
+    case ADD_RECENTLY_PLAYED: {
+      return {
+        ...state,
+        recentlyPlayed: action.payload,
+      };
+    }
+
+    case ADD_SHOWS_TO_TRY: {
+      return {
+        ...state,
+        showsToTry: action.payload,
       };
     }
 

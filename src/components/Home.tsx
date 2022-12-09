@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { HomeType } from "../redux/types/HomeType";
-import { fetchAlbumAction } from "../redux/actions/actions";
+import {
+  ADD_GOOD_MORNING,
+  ADD_RECENTLY_PLAYED,
+  ADD_SHOWS_TO_TRY,
+  fetchAlbumAction,
+} from "../redux/actions/actions";
 import { Row } from "react-bootstrap";
 import AlbumCard from "./AlbumCard";
 import { MainAlbum } from "../redux/types/Album";
@@ -9,9 +14,18 @@ import { MainAlbum } from "../redux/types/Album";
 const Home = () => {
   const dispatch = useDispatch();
   const goodMorning = useSelector((state: HomeType) => state.home.goodMorning);
+  const recentlyPlayed = useSelector(
+    (state: HomeType) => state.home.recentlyPlayed
+  );
+  const showsToTry = useSelector((state: HomeType) => state.home.showsToTry);
   const query1: string = "goodmorning";
+  const action1 = ADD_GOOD_MORNING;
+  const action2 = ADD_RECENTLY_PLAYED;
+  const action3 = ADD_SHOWS_TO_TRY;
+  const query2: string = "rihanna";
+  const query3: string = "luis";
   const endPoint: string =
-    "https://striveschool-api.herokuapp.com/api/deezer/search?q=" + query1;
+    "https://striveschool-api.herokuapp.com/api/deezer/search?q=";
   const options = {
     method: "GET",
     headers: {
@@ -21,42 +35,17 @@ const Home = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchAlbumAction(endPoint, options));
+    dispatch(fetchAlbumAction(endPoint, query1, options, action1));
     console.log(goodMorning);
+    dispatch(fetchAlbumAction(endPoint, query2, options, action2));
+    dispatch(fetchAlbumAction(endPoint, query3, options, action3));
   }, []);
 
   return (
     <div>
       <div className="center-section">
-        <div className="center-nav-bar px-35 py-2">
-          <div className="btns-prev-next">
-            <img className="img-btn" src="img/prev.svg" alt="" />
-
-            <img className="img-btn" src="img/next.svg" alt="" />
-          </div>
-
-          <div className="user-name-div d-flex text-white">
-            <div className="user-name-image px-1">
-              <i className="bi bi-person-circle"></i>
-            </div>
-            <div className="user-name-text px-1">User Name</div>
-            <div className="px-1">
-              <i className="dropdownBtn bi bi-caret-down-fill"></i>
-            </div>
-          </div>
-          <button className="btn d-none navbar-signup-btn">Sign Up</button>
-          <button className="btn d-none navbar-login-btn">Log In</button>
-          <ul className="dropMenu d-none">
-            <li>Account</li>
-            <li>Profile</li>
-            <li>Upgrade to Premium</li>
-            <li>Settings</li>
-            <li className="logout-btn">Log out</li>
-          </ul>
-        </div>
-
         <div className="good-morning-section">
-          <h2 className="px-35">Good Morning</h2>
+          <h2 className="px-4 my-4">Good Morning</h2>
           <div className="good-morning row mx-1">
             {" "}
             {goodMorning.slice(0, 6).map((album: MainAlbum) => (
@@ -65,12 +54,26 @@ const Home = () => {
           </div>
         </div>
         <div className="recently-played-section">
-          <h2 className="px-35">Recently Played</h2>
-          <div className="recently-played row mx-1"></div>
+          <h2 className="px-4">Recently Played</h2>
+          <div className="recently-played row mx-1">
+            <div className="good-morning row mx-1">
+              {" "}
+              {recentlyPlayed.slice(0, 6).map((album: MainAlbum) => (
+                <AlbumCard albumData={album} key={album.id} />
+              ))}
+            </div>
+          </div>
         </div>
         <div className="shows-to-try-section">
-          <h2 className="px-35">Shows To Try</h2>
-          <div className="shows-to-try row mx-1"></div>
+          <h2 className="px-4">Shows To Try</h2>
+          <div className="shows-to-try row mx-1">
+            <div className="good-morning row mx-1">
+              {" "}
+              {showsToTry.slice(0, 6).map((album: MainAlbum) => (
+                <AlbumCard albumData={album} key={album.id} />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

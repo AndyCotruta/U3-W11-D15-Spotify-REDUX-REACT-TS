@@ -6,16 +6,17 @@ export const ADD_RECENTLY_PLAYED: string = "ADD_RECENTLY_PLAYED";
 export const ADD_SHOWS_TO_TRY: string = "ADD_SHOWS_TO_TRY";
 
 export const fetchAlbumAction: any =
-  (endPoint: string, options: any) => async (dispatch: Dispatch) => {
+  (endPoint: string, query: string, options: any, action: string) =>
+  async (dispatch: Dispatch) => {
     console.log("Fetching...");
-    let response = await fetch(endPoint, options);
+    let response = await fetch(endPoint + query, options);
     console.log(response);
     try {
       if (response.ok) {
         let data = await response.json();
         console.log(data);
         dispatch({
-          type: ADD_GOOD_MORNING,
+          type: action,
           payload: data.data,
         });
       }

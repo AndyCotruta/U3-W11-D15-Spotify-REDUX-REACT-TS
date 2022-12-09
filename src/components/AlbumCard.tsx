@@ -1,5 +1,6 @@
 import { MainAlbum } from "../redux/types/Album";
 import { BsPlayCircleFill } from "react-icons/bs";
+import { Card, Button } from "react-bootstrap";
 
 interface AlbumProps {
   albumData: MainAlbum;
@@ -7,21 +8,17 @@ interface AlbumProps {
 
 const AlbumCard = ({ albumData }: AlbumProps) => {
   return (
-    <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-      <div className="recently-played-cards card mb-3">
-        <img
-          src={albumData.album.cover}
-          className="card-img-top"
-          alt="album-cover"
-        ></img>
-        <div className="recently-played-card-body card-body">
-          <p className="card-text p-cards-title">{albumData.album.title}</p>
-          <p className="card-text">{albumData.artist.name}</p>
+    <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4">
+      <Card>
+        <Card.Img variant="top" src={albumData.album.cover} />
+        <Card.Body>
+          <Card.Title>{albumData.album.title}</Card.Title>
+          <Card.Text>{albumData.artist.name}</Card.Text>
+        </Card.Body>
+        <div className="greenPlayBtn">
+          <BsPlayCircleFill className="greenPlay" />
         </div>
-        <button className="green-player-btn-rp">
-          <BsPlayCircleFill />
-        </button>
-      </div>
+      </Card>
     </div>
   );
 };
