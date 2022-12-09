@@ -9,7 +9,7 @@ const persistConfig = {
 };
 
 const bigReducer = combineReducers({
-  firstRed: homeReducer,
+  home: homeReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, bigReducer);

@@ -4,9 +4,11 @@ import { ADD_GOOD_MORNING } from "../actions/actions";
 import { HomeType } from "../types/HomeType";
 
 const initialState: HomeType = {
-  goodMorning: [],
-  recentlyPlayed: [],
-  showsToTry: [],
+  home: {
+    goodMorning: [],
+    recentlyPlayed: [],
+    showsToTry: [],
+  },
 };
 
 const homeReducer = (state = initialState, action: AnyAction) => {

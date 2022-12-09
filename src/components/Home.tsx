@@ -2,11 +2,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { HomeType } from "../redux/types/HomeType";
 import { fetchAlbumAction } from "../redux/actions/actions";
-import { AnyAction, Dispatch } from "redux";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const goodMorning = useSelector<HomeType>((state) => state.goodMorning);
+  const goodMorning = useSelector<HomeType>((state) => state.home.goodMorning);
   const query1: string = "goodmorning";
   const endPoint: string =
     "https://striveschool-api.herokuapp.com/api/deezer/search?q=" + query1;
@@ -23,7 +22,11 @@ const Home = () => {
     console.log(goodMorning);
   }, []);
 
-  return <h1>This is the homepage</h1>;
+  return (
+    <div>
+      <h1>This is the homepage</h1>
+    </div>
+  );
 };
 
 export default Home;
