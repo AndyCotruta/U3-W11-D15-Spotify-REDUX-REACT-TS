@@ -272,3 +272,232 @@
 }
 
 /* ...........................MusicPlayer Styling.............................. */
+
+/* ...........................CenterSection Styling.............................. */
+
+.center-section {
+  /* background: linear-gradient(
+    0deg,
+    rgba(18, 18, 18, 1) 0%,
+    rgba(61, 9, 7, 1) 100%
+  ); */
+  background-color: rgb(20, 19, 19);
+  overflow: auto;
+}
+
+h2 {
+  color: white;
+}
+
+h5 {
+  margin: 0 !important;
+}
+
+.center-nav-bar {
+  height: 7vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btns-prev-next {
+  align-self: start;
+  display: flex;
+  align-items: start;
+}
+
+.btns-prev-next img {
+  padding-right: 1.5rem;
+  cursor: pointer;
+}
+
+.px-35 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.good-morning-cards {
+  height: 60px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.185);
+  color: white;
+  transition: all 0.2s ease-in-out;
+}
+
+.good-morning-cards:hover {
+  background-color: rgba(255, 255, 255, 0.274);
+}
+
+.good-morning-cards:hover .green-player-btn-gm {
+  opacity: 1;
+}
+.good-morning-cards img {
+  height: 60px;
+  width: 60px;
+}
+
+.good-morning-cards h5 {
+  font-size: 10px;
+}
+
+.good-morning-card-body > .card-body {
+  padding: 10px;
+  height: 100%;
+  display: flex;
+  /* align-items: center; */
+}
+
+.recently-played-cards {
+  border: none;
+  background-color: #181818;
+  color: white;
+  height: 250px;
+  padding: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.green-player-btn-gm {
+  height: 16px;
+  width: 16px;
+  color: #1cdf63;
+  background-color: black;
+  border-radius: 50%;
+  border: none;
+  position: absolute;
+  right: 0.8rem;
+  bottom: 0.6rem;
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.green-player-btn-gm:hover {
+  transform: scale(1.1);
+}
+
+#gm-play {
+  transform: translate(-8px, -8px);
+}
+
+.green-player-btn-rp {
+  height: 20px;
+  width: 20px;
+  color: #1cdf63;
+  background-color: black;
+  border-radius: 50%;
+  border: none;
+  position: absolute;
+  right: 1.7rem;
+  bottom: 6.4rem;
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.green-player-btn-rp:hover {
+  transform: scale(1.1);
+}
+
+#rp-play {
+  transform: translate(-8px, -8px);
+}
+
+.recently-played-cards:hover {
+  background: linear-gradient(
+    0deg,
+    rgba(40, 40, 40, 1) 0%,
+    rgba(40, 40, 40, 0.4808517156862745) 100%
+  );
+}
+
+.recently-played-cards:hover .green-player-btn-rp {
+  opacity: 1;
+}
+
+.recently-played-cards img {
+  height: 150px;
+  object-fit: cover;
+}
+
+.recently-played-cards > .card-body {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.recently-played-cards p {
+  font-size: 12px;
+  text-align: center;
+}
+
+.card {
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+.navbar-log {
+  position: absolute;
+  right: 1.25rem;
+}
+
+.navbar-signup-btn {
+  position: absolute;
+  right: 8rem;
+  background-color: none;
+  color: #b1aaaf;
+  transition: all 0.2s ease-in-out;
+}
+
+.navbar-signup-btn:hover {
+  transform: scale(1.05);
+  color: white;
+}
+
+.navbar-login-btn {
+  position: absolute;
+  right: 1.25rem;
+  background-color: white;
+  color: black;
+  width: 100px;
+  border-radius: 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.navbar-login-btn:hover {
+  transform: scale(1.05);
+}
+
+.dropMenu {
+  min-width: 180px;
+  margin: 0;
+  padding: 5px;
+  list-style-type: none;
+  background-color: #282828;
+  color: #fffefebd;
+  position: absolute;
+  right: 1.2rem;
+  transform: translateY(130px);
+  z-index: 10;
+  font-size: 14px;
+  user-select: none;
+}
+
+.dropMenu li {
+  padding: 8px;
+}
+
+.logout-btn {
+  border-top: 1px solid #fffefebd;
+  font-weight: bold;
+}
+
+.logout-btn:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.hidden {
+  visibility: hidden;
+}
