@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { ADD_BROWSE_ALL } from "../actions/actions";
+import { ADD_BROWSE_ALL, ADD_SEARCH_RESULTS } from "../actions/actions";
 import { SearchType } from "../types/SearchType";
 
 const initialState: SearchType = {
@@ -11,7 +11,16 @@ const searchReducer = (state = initialState, action: AnyAction) => {
     case ADD_BROWSE_ALL: {
       return {
         ...state,
-        browseAll: action.payload,
+        ...state.search.search,
+        browseAll: [...state.search.browseAll, action.payload],
+      };
+    }
+
+    case ADD_SEARCH_RESULTS: {
+      return {
+        ...state,
+        ...state.search.browseAll,
+        search: action.payload,
       };
     }
 

@@ -4,6 +4,7 @@ export const ADD_GOOD_MORNING: string = "ADD_GOOD_MORNING";
 export const ADD_RECENTLY_PLAYED: string = "ADD_RECENTLY_PLAYED";
 export const ADD_SHOWS_TO_TRY: string = "ADD_SHOWS_TO_TRY";
 export const ADD_BROWSE_ALL: string = "ADD_BROWSE_ALL";
+export const ADD_SEARCH_RESULTS: string = "ADD_SEARCH_RESULTS";
 export const arrOfColors: string[] = [
   "#E13400",
   "#1E3164",
