@@ -45,6 +45,7 @@ const Home = () => {
   return (
     <div className="center-section">
       <BannerNav />
+
       <div className="good-morning-section">
         <h2 className="px-4 mt-5">Good Morning</h2>
         <div className="good-morning row mx-1">
@@ -57,23 +58,19 @@ const Home = () => {
       <div className="recently-played-section">
         <h2 className="px-4">Recently Played</h2>
         <div className="recently-played row mx-1">
-          <div className="good-morning row mx-1">
-            {" "}
-            {recentlyPlayed.slice(0, 6).map((album: MainAlbum) => (
-              <AlbumCard albumData={album} key={album.id} />
-            ))}
-          </div>
+          {" "}
+          {recentlyPlayed.slice(0, 6).map((album: MainAlbum) => (
+            <AlbumCard albumData={album} key={album.id} />
+          ))}
         </div>
       </div>
       <div className="shows-to-try-section">
         <h2 className="px-4">Shows To Try</h2>
         <div className="shows-to-try row mx-1">
-          <div className="good-morning row mx-1">
-            {" "}
-            {showsToTry.slice(0, 6).map((album: MainAlbum) => (
-              <AlbumCard albumData={album} key={album.id} />
-            ))}
-          </div>
+          {" "}
+          {showsToTry.slice(0, 6).map((album: MainAlbum) => (
+            <AlbumCard albumData={album} key={album.id} />
+          ))}
         </div>
       </div>
     </div>
