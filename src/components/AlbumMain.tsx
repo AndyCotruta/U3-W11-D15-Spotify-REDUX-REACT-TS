@@ -15,10 +15,11 @@ const AlbumMain = () => {
 
   useEffect(() => {
     console.log(mainAlbum);
+    console.log(mainAlbum.album.title);
   }, [mainAlbum]);
 
   return (
-    <div className="center-section">
+    <div className="center-section text-white">
       <BannerNav />
       <div className="d-flex mt-5">
         <div className="card-album">
@@ -30,7 +31,7 @@ const AlbumMain = () => {
         </div>
         <div className="album-details px-3">
           <h3 className="albumTitle">ALBUM</h3>
-          <h1 className="title-album">TITLE</h1>
+          <h1 className="title-album">{mainAlbum.album.title}</h1>
 
           <div>
             <div className="d-flex artist-description">
