@@ -432,4 +432,26 @@ h2 {
   margin: 0;
 }
 
+.tracks-index {
+  width: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tracks-section {
+  width: 30%;
+  min-height: 40px;
+}
+
+.track-info {
+  color: #847e82;
+}
+
+.track-info:hover {
+  background-color: #847e82;
+  color: white;
+  border-radius: 4px;
+}
+
 /* ...........................Album/Artist styling.............................. */
