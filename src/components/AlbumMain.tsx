@@ -24,7 +24,7 @@ const AlbumMain = () => {
       <div className="d-flex mt-5">
         <div className="card-album">
           <img
-            src="${chosenAlbumInfo.cover_medium}"
+            src={mainAlbum.album.cover}
             className="rendered-image"
             alt="album-image"
           />
@@ -37,8 +37,10 @@ const AlbumMain = () => {
             <div className="d-flex artist-description">
               <img className="avatar" src="${chosenAlbumInfo.cover}" alt="" />
               <p className="artist-info-banner artist-numbers">
-                <span className="artist-decoration">chosenArtist</span> - 1994 -
-                15 songs, 38 min 22 sec
+                <span className="artist-decoration">
+                  {mainAlbum.album.artist.name}
+                </span>{" "}
+                - 1994 - 15 songs, 38 min 22 sec
               </p>
             </div>
           </div>
