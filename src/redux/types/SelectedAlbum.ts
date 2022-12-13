@@ -17,7 +17,7 @@ export interface SelectedAlbum {
     nb_tracks: number;
     duration: number;
     fans: number;
-    release_date: Date;
+    release_date: string;
     record_type: string;
     available: boolean;
     tracklist: string;

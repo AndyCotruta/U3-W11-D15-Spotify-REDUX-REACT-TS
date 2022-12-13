@@ -1,10 +1,10 @@
+import { format, parseISO, secondsToMinutes } from "date-fns";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { ADD_MAIN_ALBUM } from "../redux/actions/actions";
-import { SelectedAlbum } from "../redux/types/SelectedAlbum";
 import { SelectedAlbumType } from "../redux/types/SelectedAlbumType";
 import BannerNav from "./BannerNav";
+import TracksLi from "./TracksLi";
 
 const AlbumMain = () => {
   const { id } = useParams();
@@ -22,7 +22,7 @@ const AlbumMain = () => {
     <div className="center-section text-white">
       <BannerNav />
       <div className="d-flex mt-5">
-        <div className="card-album">
+        <div className="card-album px-3">
           <img
             src={mainAlbum.album.cover}
             className="rendered-image"
@@ -36,16 +36,27 @@ const AlbumMain = () => {
           <div>
             <div className="d-flex artist-description">
               <img className="avatar" src="${chosenAlbumInfo.cover}" alt="" />
-              <p className="artist-info-banner artist-numbers">
-                <span className="artist-decoration">
-                  {mainAlbum.album.artist.name}
-                </span>{" "}
-                - 1994 - 15 songs, 38 min 22 sec
-              </p>
+              <div className="artist-info-banner artist-numbers">
+                {mainAlbum.album.artist.name}
+              </div>
+              <div className="ml-1">
+                - {format(parseISO(mainAlbum.album.release_date), "yyyy")}
+              </div>
+              <div className="ml-1">
+                - {mainAlbum.album.tracks.data.length} songs{" "}
+              </div>
+              <div className="ml-1">
+                - {secondsToMinutes(mainAlbum.album.duration)} minutes{" "}
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <ul className="track-list px-3">
+        {mainAlbum.album.tracks.data.map((track, i) => (
+          <TracksLi trackData={track} index={i} />
+        ))}
+      </ul>
     </div>
   );
 };
