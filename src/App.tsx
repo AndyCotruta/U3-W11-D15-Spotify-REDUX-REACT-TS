@@ -9,6 +9,7 @@ import Search from "./components/Search";
 import YourLibrary from "./components/YourLibrary";
 import CreatePlaylist from "./components/CreatePlaylist";
 import LikedSongs from "./components/LikedSongs";
+import AlbumMain from "./components/AlbumMain";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
+            <Route path="/album/:id" element={<AlbumMain />} />
             <Route path="/yourlibrary" element={<YourLibrary />} />
             <Route path="/createplaylist" element={<CreatePlaylist />} />
             <Route path="/likedsongs" element={<LikedSongs />} />

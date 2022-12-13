@@ -25,6 +25,7 @@ const Search = () => {
   useEffect(() => {
     console.log(query);
     dispatch(fetchAlbumAction(endPoint, query, options, action));
+    console.log(browseAll);
   });
 
   return (
