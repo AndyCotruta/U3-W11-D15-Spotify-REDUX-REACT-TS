@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { ADD_SEARCH_RESULTS, fetchAlbumAction } from "../redux/actions/actions";
@@ -6,6 +7,7 @@ import { SearchType } from "../redux/types/SearchType";
 const BannerNav = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const [query, setQuery] = useState("");
 
   const endPoint: string =
     "https://striveschool-api.herokuapp.com/api/deezer/search?q=";
@@ -29,6 +31,10 @@ const BannerNav = () => {
     }
   };
 
+  useEffect(() => {
+    fetchSearchResults(query);
+  }, [query]);
+
   return (
     <div className="p-3 bannerNav text-white d-flex align-items-center justify-content-between">
       <div className="d-flex align-items-center">
@@ -37,8 +43,9 @@ const BannerNav = () => {
           className={location.pathname === "/search" ? "input" : "hidden"}
           type="text"
           placeholder="What do you want to listen to?"
+          value={query}
           onChange={(e) => {
-            fetchSearchResults(e.target.value);
+            setQuery(e.target.value);
           }}
         />
       </div>
