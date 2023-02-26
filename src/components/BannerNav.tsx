@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { ADD_SEARCH_RESULTS, fetchAlbumAction } from "../redux/actions/actions";
-import { SearchType } from "../redux/types/SearchType";
 
 const BannerNav = () => {
   const location = useLocation();
@@ -21,7 +20,6 @@ const BannerNav = () => {
   const action = ADD_SEARCH_RESULTS;
 
   const fetchSearchResults = (query: string) => {
-    console.log(query);
     dispatch(fetchAlbumAction(endPoint, query, options, action));
     if (query === "") {
       dispatch({

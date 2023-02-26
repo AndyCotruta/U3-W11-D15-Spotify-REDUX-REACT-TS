@@ -1,16 +1,17 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ADD_BROWSE_ALL, fetchAlbumAction } from "../redux/actions/actions";
-import { SearchType } from "../redux/types/SearchType";
+import { RootState } from "../redux/store";
+import { MainAlbum } from "../redux/types/Album";
 import AlbumCard from "./AlbumCard";
 import BannerNav from "./BannerNav";
 import BrowseAllCard from "./BrowseAllCard";
 
 const Search = () => {
   const dispatch = useDispatch();
-  const browseAll = useSelector((state: SearchType) => state.search.browseAll);
+  const browseAll = useSelector((state: RootState) => state.search.browseAll);
   const searchResults = useSelector(
-    (state: SearchType) => state.search.searchResults
+    (state: RootState) => state.search.searchResults
   );
 
   const endPoint: string =
@@ -36,11 +37,11 @@ const Search = () => {
       <h2 className="px-3 mt-5 pt-4">Browse All</h2>
       <div className="browse-all row mx-1">
         {searchResults && searchResults.length === 0
-          ? browseAll.map((album, i) => (
+          ? browseAll.map((album: MainAlbum, i: number) => (
               <BrowseAllCard browseData={album} key={album.id} index={i} />
             ))
           : searchResults &&
-            searchResults.map((album, i) => (
+            searchResults.map((album: MainAlbum, i: number) => (
               <AlbumCard albumData={album} key={album.id} />
             ))}
       </div>

@@ -7,11 +7,9 @@ import {
 import { HomeType } from "../types/HomeType";
 
 const initialState: HomeType = {
-  home: {
-    goodMorning: [],
-    recentlyPlayed: [],
-    showsToTry: [],
-  },
+  goodMorning: [],
+  recentlyPlayed: [],
+  showsToTry: [],
 };
 
 const homeReducer = (state = initialState, action: AnyAction) => {

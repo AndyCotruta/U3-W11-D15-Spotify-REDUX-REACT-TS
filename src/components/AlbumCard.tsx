@@ -28,9 +28,9 @@ const AlbumCard = ({ albumData }: AlbumProps) => {
   return (
     <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4">
       <Card
-        onClick={() => {
+        onClick={async () => {
+          await dispatch(fetchMainAlbum(endPoint, options, action));
           navigate(`/album/${albumData.album.id}`);
-          dispatch(fetchMainAlbum(endPoint, options, action));
         }}
       >
         <Card.Img

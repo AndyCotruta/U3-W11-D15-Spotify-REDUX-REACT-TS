@@ -1,12 +1,10 @@
 import { AnyAction } from "redux";
 import { ADD_BROWSE_ALL, ADD_SEARCH_RESULTS } from "../actions/actions";
-import { SearchType } from "../types/SearchType";
+import { SearchReducer } from "../types/SearchType";
 
-const initialState: SearchType = {
-  search: {
-    searchResults: [],
-    browseAll: [],
-  },
+const initialState: SearchReducer = {
+  searchResults: [],
+  browseAll: [],
 };
 
 const searchReducer = (state = initialState, action: AnyAction) => {
@@ -22,6 +20,7 @@ const searchReducer = (state = initialState, action: AnyAction) => {
     case ADD_SEARCH_RESULTS: {
       return {
         ...state,
+
         searchResults: action.payload,
       };
     }

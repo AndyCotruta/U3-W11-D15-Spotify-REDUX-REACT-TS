@@ -11,7 +11,6 @@ const albumReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case ADD_MAIN_ALBUM: {
       return {
-        ...state,
         album: action.payload,
       };
     }

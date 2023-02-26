@@ -32,8 +32,8 @@ export const arrOfColors: string[] = [
 export const fetchAlbumAction: any =
   (endPoint: string, query: string, options: any, action: string) =>
   async (dispatch: Dispatch) => {
-    let response = await fetch(endPoint + query, options);
     try {
+      let response = await fetch(endPoint + query, options);
       if (response.ok) {
         let data = await response.json();
         dispatch({
@@ -50,8 +50,9 @@ export const fetchMainAlbum: any =
   (endPoint: string, options: any, action: string) =>
   async (dispatch: Dispatch) => {
     console.log("Fetching main album data...");
-    let response = await fetch(endPoint, options);
+
     try {
+      let response = await fetch(endPoint, options);
       if (response.ok) {
         let data = await response.json();
         console.log(data);

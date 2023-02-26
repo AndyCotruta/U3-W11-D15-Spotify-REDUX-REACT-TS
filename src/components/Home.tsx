@@ -11,15 +11,15 @@ import { Row } from "react-bootstrap";
 import AlbumCard from "./AlbumCard";
 import { MainAlbum } from "../redux/types/Album";
 import BannerNav from "./BannerNav";
+import { RootState } from "../redux/store";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const goodMorning = useSelector((state: HomeType) => state.home.goodMorning);
-  console.log(goodMorning);
+  const goodMorning = useSelector((state: RootState) => state.home.goodMorning);
   const recentlyPlayed = useSelector(
-    (state: HomeType) => state.home.recentlyPlayed
+    (state: RootState) => state.home.recentlyPlayed
   );
-  const showsToTry = useSelector((state: HomeType) => state.home.showsToTry);
+  const showsToTry = useSelector((state: RootState) => state.home.showsToTry);
   const query1: string = "goodmorning";
   const action1 = ADD_GOOD_MORNING;
   const action2 = ADD_RECENTLY_PLAYED;
