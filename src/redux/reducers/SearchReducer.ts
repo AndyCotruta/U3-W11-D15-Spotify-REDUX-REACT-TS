@@ -3,7 +3,10 @@ import { ADD_BROWSE_ALL, ADD_SEARCH_RESULTS } from "../actions/actions";
 import { SearchType } from "../types/SearchType";
 
 const initialState: SearchType = {
-  search: { search: [], browseAll: [] },
+  search: {
+    searchResults: [],
+    browseAll: [],
+  },
 };
 
 const searchReducer = (state = initialState, action: AnyAction) => {
@@ -11,16 +14,15 @@ const searchReducer = (state = initialState, action: AnyAction) => {
     case ADD_BROWSE_ALL: {
       return {
         ...state,
-        ...state.search.search,
-        browseAll: [...state.search.browseAll, action.payload],
+
+        browseAll: action.payload,
       };
     }
 
     case ADD_SEARCH_RESULTS: {
       return {
         ...state,
-        ...state.search.browseAll,
-        search: action.payload,
+        searchResults: action.payload,
       };
     }
 

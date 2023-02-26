@@ -9,7 +9,10 @@ import BrowseAllCard from "./BrowseAllCard";
 const Search = () => {
   const dispatch = useDispatch();
   const browseAll = useSelector((state: SearchType) => state.search.browseAll);
-  const searchResults = useSelector((state: SearchType) => state.search.search);
+  const searchResults = useSelector(
+    (state: SearchType) => state.search.searchResults
+  );
+
   const endPoint: string =
     "https://striveschool-api.herokuapp.com/api/deezer/search?q=";
   const options = {
@@ -23,10 +26,8 @@ const Search = () => {
   const action = ADD_BROWSE_ALL;
 
   useEffect(() => {
-    console.log(query);
     dispatch(fetchAlbumAction(endPoint, query, options, action));
-    console.log(browseAll);
-  });
+  }, []);
 
   return (
     <div className="center-section">
@@ -34,11 +35,12 @@ const Search = () => {
 
       <h2 className="px-3 mt-5 pt-4">Browse All</h2>
       <div className="browse-all row mx-1">
-        {searchResults.length === 0
+        {searchResults && searchResults.length === 0
           ? browseAll.map((album, i) => (
               <BrowseAllCard browseData={album} key={album.id} index={i} />
             ))
-          : searchResults.map((album, i) => (
+          : searchResults &&
+            searchResults.map((album, i) => (
               <AlbumCard albumData={album} key={album.id} />
             ))}
       </div>

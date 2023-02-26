@@ -4,6 +4,7 @@ import { Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ADD_MAIN_ALBUM, fetchMainAlbum } from "../redux/actions/actions";
+import { useEffect } from "react";
 
 interface AlbumProps {
   albumData: MainAlbum;
@@ -20,8 +21,10 @@ const AlbumCard = ({ albumData }: AlbumProps) => {
       "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
     },
   };
-
   const action = ADD_MAIN_ALBUM;
+  // useEffect(() => {
+  //   dispatch(fetchMainAlbum(endPoint, options, action));
+  // }, []);
   return (
     <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4">
       <Card

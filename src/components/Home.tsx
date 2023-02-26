@@ -15,6 +15,7 @@ import BannerNav from "./BannerNav";
 const Home = () => {
   const dispatch = useDispatch();
   const goodMorning = useSelector((state: HomeType) => state.home.goodMorning);
+  console.log(goodMorning);
   const recentlyPlayed = useSelector(
     (state: HomeType) => state.home.recentlyPlayed
   );
@@ -37,7 +38,6 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(fetchAlbumAction(endPoint, query1, options, action1));
-    console.log(goodMorning);
     dispatch(fetchAlbumAction(endPoint, query2, options, action2));
     dispatch(fetchAlbumAction(endPoint, query3, options, action3));
   }, []);
@@ -50,27 +50,36 @@ const Home = () => {
         <h2 className="px-4 mt-5">Good Morning</h2>
         <div className="good-morning row mx-1">
           {" "}
-          {goodMorning.slice(0, 6).map((album: MainAlbum) => (
-            <AlbumCard albumData={album} key={album.id} />
-          ))}
+          {goodMorning &&
+            goodMorning
+              .slice(0, 6)
+              .map((album: MainAlbum) => (
+                <AlbumCard albumData={album} key={album.id} />
+              ))}
         </div>
       </div>
       <div className="recently-played-section">
         <h2 className="px-4">Recently Played</h2>
         <div className="recently-played row mx-1">
           {" "}
-          {recentlyPlayed.slice(0, 6).map((album: MainAlbum) => (
-            <AlbumCard albumData={album} key={album.id} />
-          ))}
+          {recentlyPlayed &&
+            recentlyPlayed
+              .slice(0, 6)
+              .map((album: MainAlbum) => (
+                <AlbumCard albumData={album} key={album.id} />
+              ))}
         </div>
       </div>
       <div className="shows-to-try-section">
         <h2 className="px-4">Shows To Try</h2>
         <div className="shows-to-try row mx-1">
           {" "}
-          {showsToTry.slice(0, 6).map((album: MainAlbum) => (
-            <AlbumCard albumData={album} key={album.id} />
-          ))}
+          {showsToTry &&
+            showsToTry
+              .slice(0, 6)
+              .map((album: MainAlbum) => (
+                <AlbumCard albumData={album} key={album.id} />
+              ))}
         </div>
       </div>
     </div>
