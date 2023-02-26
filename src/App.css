@@ -425,6 +425,33 @@ h2 {
 /* ...........................Search Styling.............................. */
 
 /* ...........................Album/Artist styling.............................. */
+.big-play {
+  background-color: #1cdf63;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.big-play:hover {
+  transform: scale(1.1);
+}
+
+.like-album {
+  font-size: 1.7rem;
+  color: #847e82;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.like-album:hover {
+  color: white;
+  transform: scale(1.1);
+}
 
 .track-list {
   list-style: none;
