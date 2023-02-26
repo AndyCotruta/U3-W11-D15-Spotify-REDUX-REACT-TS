@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { ADD_SEARCH_RESULTS, fetchAlbumAction } from "../redux/actions/actions";
+import {
+  ADD_LIBRARY_TABS,
+  ADD_SEARCH_RESULTS,
+  fetchAlbumAction,
+} from "../redux/actions/actions";
 
 const BannerNav = () => {
   const location = useLocation();
@@ -46,6 +50,46 @@ const BannerNav = () => {
             setQuery(e.target.value);
           }}
         />
+        <div
+          className={
+            location.pathname === "/yourlibrary"
+              ? "library-tabs d-flex"
+              : "hidden"
+          }
+        >
+          <div
+            className="l-tabs px-3"
+            onClick={() => {
+              dispatch({ type: ADD_LIBRARY_TABS, payload: "Playlists" });
+            }}
+          >
+            Playlists
+          </div>
+          <div
+            className="l-tabs px-3"
+            onClick={() => {
+              dispatch({ type: ADD_LIBRARY_TABS, payload: "Podcasts" });
+            }}
+          >
+            Podcasts
+          </div>
+          <div
+            className="l-tabs px-3"
+            onClick={() => {
+              dispatch({ type: ADD_LIBRARY_TABS, payload: "Artists" });
+            }}
+          >
+            Artists
+          </div>
+          <div
+            className="l-tabs px-3"
+            onClick={() => {
+              dispatch({ type: ADD_LIBRARY_TABS, payload: "Albums" });
+            }}
+          >
+            Albums
+          </div>
+        </div>
       </div>
       <div>Profile</div>
     </div>

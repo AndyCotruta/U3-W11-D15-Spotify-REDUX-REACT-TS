@@ -4,6 +4,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import homeReducer from "../reducers/HomeReducer";
 import searchReducer from "../reducers/SearchReducer";
 import albumReducer from "../reducers/AlbumReducer";
+import yourLibraryReducer from "../reducers/YourLibraryReducer";
 
 const persistConfig = {
   key: "root",
@@ -14,6 +15,7 @@ const bigReducer = combineReducers({
   home: homeReducer,
   search: searchReducer,
   album: albumReducer,
+  yourLibrary: yourLibraryReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, bigReducer);

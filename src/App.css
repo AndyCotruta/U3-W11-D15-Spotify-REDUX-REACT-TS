@@ -482,3 +482,24 @@ h2 {
 }
 
 /* ...........................Album/Artist styling.............................. */
+
+/* ...........................Your Library styling............................... */
+
+.library-tabs {
+  font-weight: bold;
+}
+
+.l-tabs {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.l-tabs:hover {
+  transform: scale(1.1);
+}
+
+.liked-album {
+  color: #1cdf63;
+}
+
+/* ...........................Your Library styling............................... */

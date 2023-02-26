@@ -4,16 +4,30 @@ import { useParams } from "react-router-dom";
 import { RootState } from "../redux/store";
 import BannerNav from "./BannerNav";
 import TracksLi from "./TracksLi";
-import { BsHeart, BsThreeDots } from "react-icons/bs";
+import { BsHeart, BsThreeDots, BsHeartFill } from "react-icons/bs";
 import { ReactComponent as Play } from "./icons/play.svg";
 import { useEffect, useState } from "react";
+import {
+  ADD_LIKED_ALBUMS,
+  REMOVE_LIKED_ALBUMS,
+} from "../redux/actions/actions";
+import { MainAlbum } from "../redux/types/Album";
 
 const AlbumMain = () => {
   const { id } = useParams();
   const [color, setColor] = useState({ R: 0, G: 0, B: 0 });
 
   const mainAlbum = useSelector((state: RootState) => state.album.album);
-  console.log(mainAlbum);
+  const likedAlbums = useSelector(
+    (state: RootState) => state.yourLibrary.albums
+  );
+  const isLiked = likedAlbums.find(
+    (album: MainAlbum) => album.id === mainAlbum.id
+  );
+  const dislikeAlbum = likedAlbums.filter(
+    (album: MainAlbum) => album.id !== mainAlbum.id
+  );
+
   const dispatch = useDispatch();
 
   const imageElement = mainAlbum.cover_medium;
@@ -125,7 +139,20 @@ const AlbumMain = () => {
           <Play className="big-play-triangle" />
         </div>
         <div className="px-4 like-album">
-          <BsHeart />
+          {isLiked ? (
+            <BsHeartFill
+              className="liked-album"
+              onClick={() => {
+                dispatch({ type: REMOVE_LIKED_ALBUMS, payload: dislikeAlbum });
+              }}
+            />
+          ) : (
+            <BsHeart
+              onClick={() => {
+                dispatch({ type: ADD_LIKED_ALBUMS, payload: mainAlbum });
+              }}
+            />
+          )}
         </div>
         <div className=" like-album">
           <BsThreeDots />

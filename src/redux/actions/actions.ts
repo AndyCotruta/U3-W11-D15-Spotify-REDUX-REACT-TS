@@ -28,6 +28,9 @@ export const arrOfColors: string[] = [
   "#148A06",
   "#BC5900",
 ];
+export const ADD_LIBRARY_TABS = "ADD_LIBRARY_TABS";
+export const ADD_LIKED_ALBUMS = "ADD_LIKED_ALBUMS";
+export const REMOVE_LIKED_ALBUMS = "REMOVE_LIKED_ALBUMS";
 
 export const fetchAlbumAction: any =
   (endPoint: string, query: string, options: any, action: string) =>
