@@ -17,7 +17,6 @@ const TracksLi = ({ trackData, index }: tracksProps) => {
   const dispatch = useDispatch();
 
   const [hovered, setHovered] = useState(0);
-
   const likedSongs = useSelector((state: RootState) => state.yourLibrary.songs);
 
   return (
@@ -47,12 +46,13 @@ const TracksLi = ({ trackData, index }: tracksProps) => {
 
       <div className="tracks-section  d-flex align-items-center justify-content-end px-1">
         {hovered === trackData.id && !likedSongs.includes(trackData.id) && (
-          <div className="px-3">
-            <BsHeart
-              onClick={() => {
-                dispatch({ type: ADD_LIKED_SONG, payload: trackData.id });
-              }}
-            />
+          <div
+            className="px-3 absolute"
+            onClick={() => {
+              dispatch({ type: ADD_LIKED_SONG, payload: trackData.id });
+            }}
+          >
+            <BsHeart />
           </div>
         )}
         {likedSongs.includes(trackData.id) && (

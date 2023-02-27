@@ -7,10 +7,9 @@ import BannerNav from "./BannerNav";
 import { BsPlayCircleFill } from "react-icons/bs";
 import AlbumCard from "./AlbumCard";
 import YourLibraryAlbumCard from "./YourLibraryAlbumCard";
-import { SelectedAlbum } from "../redux/types/SelectedAlbum";
+import { SelectedAlbum, TracksDatum } from "../redux/types/SelectedAlbum";
 
 const YourLibrary = () => {
-  const [playlists, setPlaylists] = useState("");
   const selectedTab = useSelector((state: RootState) => state.yourLibrary.tab);
   const likedAlbums = useSelector(
     (state: RootState) => state.yourLibrary.albums
@@ -28,7 +27,11 @@ const YourLibrary = () => {
               {likedSongs.length === 0 ? (
                 <div>Please like some songs before you can see them here</div>
               ) : (
-                <div>Liked Songs</div>
+                <div>
+                  {likedSongs.map((likedSong: number) => (
+                    <div>{likedSong}</div>
+                  ))}
+                </div>
               )}
 
               <div className="liked-songs-playBtn">

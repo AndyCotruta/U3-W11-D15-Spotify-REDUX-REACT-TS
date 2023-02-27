@@ -9,7 +9,7 @@ import {
 import { YourLibraryType } from "../types/YourLibraryType";
 
 const initialState: YourLibraryType = {
-  tab: "",
+  tab: "Playlists",
   playlists: [],
   podcasts: [],
   artists: [],
@@ -38,10 +38,14 @@ const yourLibraryReducer = (state = initialState, action: AnyAction) => {
       };
     }
     case ADD_LIKED_SONG: {
-      return {
-        ...state,
-        songs: [...state.songs, action.payload],
-      };
+      if (state.songs.includes(action.payload)) {
+        return state;
+      } else {
+        return {
+          ...state,
+          songs: [...state.songs, action.payload],
+        };
+      }
     }
     case REMOVE_LIKED_SONG: {
       return {
