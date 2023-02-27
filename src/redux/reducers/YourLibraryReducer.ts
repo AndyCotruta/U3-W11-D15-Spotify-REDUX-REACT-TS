@@ -2,7 +2,9 @@ import { AnyAction } from "redux";
 import {
   ADD_LIBRARY_TABS,
   ADD_LIKED_ALBUMS,
+  ADD_LIKED_SONG,
   REMOVE_LIKED_ALBUMS,
+  REMOVE_LIKED_SONG,
 } from "../actions/actions";
 import { YourLibraryType } from "../types/YourLibraryType";
 
@@ -33,6 +35,18 @@ const yourLibraryReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         albums: action.payload,
+      };
+    }
+    case ADD_LIKED_SONG: {
+      return {
+        ...state,
+        songs: [...state.songs, action.payload],
+      };
+    }
+    case REMOVE_LIKED_SONG: {
+      return {
+        ...state,
+        songs: action.payload,
       };
     }
     default:
