@@ -12,6 +12,7 @@ const initialState: YourLibraryType = {
   podcasts: [],
   artists: [],
   albums: [],
+  songs: [],
 };
 
 const yourLibraryReducer = (state = initialState, action: AnyAction) => {

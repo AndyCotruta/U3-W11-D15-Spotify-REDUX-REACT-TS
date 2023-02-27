@@ -1,9 +1,11 @@
-import { MainAlbum } from "./Album";
+import { Artist, MainAlbum } from "./Album";
+import { SelectedAlbum, TracksDatum } from "./SelectedAlbum";
 
 export interface YourLibraryType {
   tab: String;
-  playlists: MainAlbum[];
+  playlists: SelectedAlbum[];
   podcasts: MainAlbum[];
-  artists: MainAlbum[];
-  albums: MainAlbum[];
+  artists: Artist[];
+  albums: SelectedAlbum[];
+  songs: TracksDatum[];
 }

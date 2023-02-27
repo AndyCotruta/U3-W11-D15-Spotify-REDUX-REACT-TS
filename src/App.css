@@ -502,4 +502,42 @@ h2 {
   color: #1cdf63;
 }
 
+.w-full {
+  width: 100%;
+}
+
+.liked-songs-card {
+  background: linear-gradient(149.46deg, #450af5, #8e8ee5 99.16%);
+  height: 280px;
+  width: 400px;
+  padding: 1rem;
+  position: relative;
+}
+
+.liked-songs-playBtn {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  color: #1cdf63;
+  background-color: #181818;
+  border-radius: 50%;
+  -webkit-box-shadow: 5px 5px 5px -3px #000000;
+  box-shadow: 0px 5px 5px -2px #393838;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.liked-songs-playBtn:hover {
+  transform: scale(1.1);
+}
+
+.ls-btn {
+  font-size: 3rem;
+}
+
+.liked-album-card {
+  height: 280px;
+  width: 200px;
+}
+
 /* ...........................Your Library styling............................... */
