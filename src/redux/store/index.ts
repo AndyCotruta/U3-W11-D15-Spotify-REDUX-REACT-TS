@@ -5,6 +5,7 @@ import homeReducer from "../reducers/HomeReducer";
 import searchReducer from "../reducers/SearchReducer";
 import albumReducer from "../reducers/AlbumReducer";
 import yourLibraryReducer from "../reducers/YourLibraryReducer";
+import musicPlayerReducer from "../reducers/MusicPlayerReducer";
 
 const persistConfig = {
   key: "root",
@@ -16,6 +17,7 @@ const bigReducer = combineReducers({
   search: searchReducer,
   album: albumReducer,
   yourLibrary: yourLibraryReducer,
+  musicPlayer: musicPlayerReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, bigReducer);

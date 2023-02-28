@@ -35,6 +35,10 @@ export const ADD_LIKED_SONG = "ADD_LIKED_SONG";
 export const REMOVE_LIKED_SONG = "REMOVE_LIKED_SONG";
 export const ADD_LIKED_SONG_ID = "ADD_LIKED_SONG_ID";
 export const REMOVE_LIKED_SONG_ID = "REMOVE_LIKED_SONG_ID";
+export const SET_CURRENT_TRACK_INDEX = "SET_CURRENT_TRACK_INDEX";
+export const SET_CURRENT_TRACK = "SET_CURRENT_TRACK";
+export const SET_AUDIO_ARRAY = "SET_AUDIO_ARRAY";
+export const SET_IS_PLAYING = "SET_IS_PLAYING";
 
 export const fetchAlbumAction: any =
   (endPoint: string, query: string, options: any, action: string) =>

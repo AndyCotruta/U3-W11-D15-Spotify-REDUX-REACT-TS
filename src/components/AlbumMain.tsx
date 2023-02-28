@@ -10,9 +10,13 @@ import { useEffect, useState } from "react";
 import {
   ADD_LIKED_ALBUMS,
   REMOVE_LIKED_ALBUMS,
+  SET_AUDIO_ARRAY,
+  SET_CURRENT_TRACK,
+  SET_CURRENT_TRACK_INDEX,
+  SET_IS_PLAYING,
 } from "../redux/actions/actions";
 import { MainAlbum } from "../redux/types/Album";
-import { Tracks } from "../redux/types/SelectedAlbum";
+import { Tracks, TracksDatum } from "../redux/types/SelectedAlbum";
 
 const AlbumMain = () => {
   const mainAlbum = useSelector((state: RootState) => state.album.album);
@@ -98,6 +102,10 @@ const AlbumMain = () => {
     transition: `all 0.9s ease-in-out`,
   };
 
+  const currentIndex = useSelector(
+    (state: RootState) => state.musicPlayer.currentTrackIndex
+  );
+
   const playAlbum = (tracksArray: Tracks) => {
     let index = 0;
     const audioArray: HTMLAudioElement[] = [];
@@ -105,19 +113,77 @@ const AlbumMain = () => {
       const audio = new Audio(track.preview);
       audioArray.push(audio);
     });
-
-    // Play the first audio element
+    // dispatch({ type: SET_AUDIO_ARRAY, payload: audioArray });
+    dispatch({ type: SET_IS_PLAYING, payload: true });
+    dispatch({ type: SET_CURRENT_TRACK, payload: tracksArray.data[index] });
+    dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: index });
     audioArray[index].play();
+    audioArray.forEach((audio) => {
+      audio.addEventListener("ended", () => {
+        index++;
+        if (index < audioArray.length) {
+          console.log("Index when playing tracks: ", index);
 
-    // Update the index variable and play the next audio element
-    audioArray[index].addEventListener("ended", () => {
-      index++;
-      if (index < audioArray.length) {
-        audioArray[index].play();
-      }
+          dispatch({ type: SET_IS_PLAYING, payload: true });
+          dispatch({
+            type: SET_CURRENT_TRACK,
+            payload: tracksArray.data[index],
+          });
+          dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: index });
+          audioArray[index].play();
+        }
+        if (index === audioArray.length) {
+          dispatch({ type: SET_IS_PLAYING, payload: false });
+          dispatch({ type: SET_CURRENT_TRACK, payload: {} });
+        }
+      });
     });
   };
 
+  //     // Play the first track
+  //     audioElements[0].play();
+
+  //     // Set up event listeners to update state
+  //     audioElements[currentTrackIndex].addEventListener("ended", () => {
+  //       const nextTrackIndex = (currentTrackIndex + 1) % audioElements.length;
+  //       dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: nextTrackIndex });
+  //     });
+  //   }, []);
+
+  //   useEffect(() => {
+  //     // Pause or play the current track when the isPlaying state changes
+  //     if (isPlaying) {
+  //       audioArray[currentTrackIndex].play();
+  //     } else {
+  //       audioArray[currentTrackIndex].pause();
+  //     }
+  //   }, [isPlaying]);
+
+  //   // Play the current track
+  //   const handlePlay = () => {
+  //     dispatch({ type: SET_IS_PLAYING, payload: true });
+  //   };
+
+  //   // Pause the current track
+  //   const handlePause = () => {
+  //     dispatch({ type: SET_IS_PLAYING, payload: false });
+  //   };
+
+  //   // Play the previous track
+  //   const handlePrevious = () => {
+  //     const previousTrackIndex =
+  //       (currentTrackIndex - 1 + audioArray.length) % audioArray.length;
+  //     dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: previousTrackIndex });
+  //     dispatch({ type: SET_IS_PLAYING, payload: true });
+  //   };
+
+  //   // Play the next track
+  //   const handleNext = () => {
+  //     const nextTrackIndex = (currentTrackIndex + 1) % audioArray.length;
+  //     dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: nextTrackIndex });
+  //     dispatch({ type: SET_IS_PLAYING, payload: true });
+  //   };
+  // };
   return (
     <div style={style} className="center-section text-white">
       <BannerNav />
@@ -158,7 +224,8 @@ const AlbumMain = () => {
           <Play
             className="big-play-triangle"
             onClick={() => {
-              playAlbum(mainAlbum.tracks);
+              const tracksArray = mainAlbum.tracks;
+              playAlbum(tracksArray);
             }}
           />
         </div>
@@ -167,7 +234,10 @@ const AlbumMain = () => {
             <BsHeartFill
               className="liked-album"
               onClick={() => {
-                dispatch({ type: REMOVE_LIKED_ALBUMS, payload: dislikeAlbum });
+                dispatch({
+                  type: REMOVE_LIKED_ALBUMS,
+                  payload: dislikeAlbum,
+                });
               }}
             />
           ) : (
