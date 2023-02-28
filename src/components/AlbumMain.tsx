@@ -12,11 +12,9 @@ import {
   REMOVE_LIKED_ALBUMS,
 } from "../redux/actions/actions";
 import { MainAlbum } from "../redux/types/Album";
+import { Tracks } from "../redux/types/SelectedAlbum";
 
 const AlbumMain = () => {
-  const { id } = useParams();
-  const [color, setColor] = useState({ R: 0, G: 0, B: 0 });
-
   const mainAlbum = useSelector((state: RootState) => state.album.album);
   const likedAlbums = useSelector(
     (state: RootState) => state.yourLibrary.albums
@@ -99,6 +97,27 @@ const AlbumMain = () => {
       : "black",
     transition: `all 0.9s ease-in-out`,
   };
+
+  const playAlbum = (tracksArray: Tracks) => {
+    let index = 0;
+    const audioArray: HTMLAudioElement[] = [];
+    tracksArray.data.forEach((track) => {
+      const audio = new Audio(track.preview);
+      audioArray.push(audio);
+    });
+
+    // Play the first audio element
+    audioArray[index].play();
+
+    // Update the index variable and play the next audio element
+    audioArray[index].addEventListener("ended", () => {
+      index++;
+      if (index < audioArray.length) {
+        audioArray[index].play();
+      }
+    });
+  };
+
   return (
     <div style={style} className="center-section text-white">
       <BannerNav />
@@ -136,7 +155,12 @@ const AlbumMain = () => {
       </div>
       <div className="d-flex align-items-center px-3">
         <div className="big-play  my-3">
-          <Play className="big-play-triangle" />
+          <Play
+            className="big-play-triangle"
+            onClick={() => {
+              playAlbum(mainAlbum.tracks);
+            }}
+          />
         </div>
         <div className="px-4 like-album">
           {isLiked ? (

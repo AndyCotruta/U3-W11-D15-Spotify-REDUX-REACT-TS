@@ -38,7 +38,19 @@ const TracksLi = ({ trackData, index }: tracksProps) => {
       }}
     >
       <span className="mr-3 tracks-index">
-        {hovered === trackData.id ? <BsPlayFill /> : index + 1}
+        {hovered === trackData.id ? (
+          <div
+            onClick={() => {
+              const audio = new Audio(trackData.preview);
+              audio.play();
+              audio.addEventListener("ended", () => {});
+            }}
+          >
+            <BsPlayFill />
+          </div>
+        ) : (
+          index + 1
+        )}
       </span>
       <div className="tracks-section d-flex align-items-center">
         {trackData.title}
