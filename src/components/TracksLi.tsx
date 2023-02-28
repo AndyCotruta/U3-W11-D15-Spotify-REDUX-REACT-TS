@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TracksDatum } from "../redux/types/SelectedAlbum";
 import { BsPlayFill, BsHeart, BsHeartFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_LIKED_SONG, REMOVE_LIKED_SONG } from "../redux/actions/actions";
+import {
+  ADD_LIKED_SONG,
+  ADD_LIKED_SONG_ID,
+  REMOVE_LIKED_SONG,
+  REMOVE_LIKED_SONG_ID,
+} from "../redux/actions/actions";
 import { RootState } from "../redux/store";
 
 interface tracksProps {
@@ -17,6 +22,9 @@ const TracksLi = ({ trackData, index }: tracksProps) => {
   const dispatch = useDispatch();
 
   const [hovered, setHovered] = useState(0);
+  const likedSongsIds = useSelector(
+    (state: RootState) => state.yourLibrary.songsIds
+  );
   const likedSongs = useSelector((state: RootState) => state.yourLibrary.songs);
 
   return (
@@ -45,26 +53,34 @@ const TracksLi = ({ trackData, index }: tracksProps) => {
       </div>
 
       <div className="tracks-section  d-flex align-items-center justify-content-end px-1">
-        {hovered === trackData.id && !likedSongs.includes(trackData.id) && (
+        {hovered === trackData.id && !likedSongsIds.includes(trackData.id) && (
           <div
             className="px-3 absolute"
             onClick={() => {
-              dispatch({ type: ADD_LIKED_SONG, payload: trackData.id });
+              dispatch({ type: ADD_LIKED_SONG, payload: trackData });
+              dispatch({ type: ADD_LIKED_SONG_ID, payload: trackData.id });
             }}
           >
             <BsHeart />
           </div>
         )}
-        {likedSongs.includes(trackData.id) && (
+        {likedSongsIds.includes(trackData.id) && (
           <div
             className="px-3 liked-song"
             onClick={() => {
+              const deletedSongsIds = likedSongsIds.filter(
+                (likedSongId: number) => likedSongId !== trackData.id
+              );
               const deletedSongs = likedSongs.filter(
-                (likedSong: number) => likedSong !== trackData.id
+                (likedSong: TracksDatum) => likedSong !== trackData
               );
               dispatch({
                 type: REMOVE_LIKED_SONG,
                 payload: deletedSongs,
+              });
+              dispatch({
+                type: REMOVE_LIKED_SONG_ID,
+                payload: deletedSongsIds,
               });
             }}
           >

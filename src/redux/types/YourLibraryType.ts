@@ -8,4 +8,5 @@ export interface YourLibraryType {
   artists: Artist[];
   albums: SelectedAlbum[];
   songs: TracksDatum[];
+  songsIds: number[];
 }

@@ -3,8 +3,10 @@ import {
   ADD_LIBRARY_TABS,
   ADD_LIKED_ALBUMS,
   ADD_LIKED_SONG,
+  ADD_LIKED_SONG_ID,
   REMOVE_LIKED_ALBUMS,
   REMOVE_LIKED_SONG,
+  REMOVE_LIKED_SONG_ID,
 } from "../actions/actions";
 import { YourLibraryType } from "../types/YourLibraryType";
 
@@ -15,6 +17,7 @@ const initialState: YourLibraryType = {
   artists: [],
   albums: [],
   songs: [],
+  songsIds: [],
 };
 
 const yourLibraryReducer = (state = initialState, action: AnyAction) => {
@@ -51,6 +54,18 @@ const yourLibraryReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         songs: action.payload,
+      };
+    }
+    case ADD_LIKED_SONG_ID: {
+      return {
+        ...state,
+        songsIds: [...state.songsIds, action.payload],
+      };
+    }
+    case REMOVE_LIKED_SONG_ID: {
+      return {
+        ...state,
+        songsIds: action.payload,
       };
     }
     default:

@@ -33,6 +33,8 @@ export const ADD_LIKED_ALBUMS = "ADD_LIKED_ALBUMS";
 export const REMOVE_LIKED_ALBUMS = "REMOVE_LIKED_ALBUMS";
 export const ADD_LIKED_SONG = "ADD_LIKED_SONG";
 export const REMOVE_LIKED_SONG = "REMOVE_LIKED_SONG";
+export const ADD_LIKED_SONG_ID = "ADD_LIKED_SONG_ID";
+export const REMOVE_LIKED_SONG_ID = "REMOVE_LIKED_SONG_ID";
 
 export const fetchAlbumAction: any =
   (endPoint: string, query: string, options: any, action: string) =>
