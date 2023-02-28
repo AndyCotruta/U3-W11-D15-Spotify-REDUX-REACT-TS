@@ -552,3 +552,29 @@ h2 {
 }
 
 /* ...........................Your Library styling............................... */
+
+/* ...........................Liked Songs styling............................... */
+
+.liked-songs-header {
+  margin-top: 6rem;
+}
+
+.liked-songs-png {
+  height: 186px;
+  width: 186px;
+}
+
+.liked-songs-text {
+  color: white;
+}
+
+.LS {
+  font-weight: bold;
+  font-size: 5rem;
+}
+
+/* ...........................Liked Songs styling............................... */
+
+.unselectable {
+  user-select: none;
+}

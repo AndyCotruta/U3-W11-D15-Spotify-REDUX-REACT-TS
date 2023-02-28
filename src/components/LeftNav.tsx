@@ -35,12 +35,12 @@ const LeftNav = () => {
         </Link>
       </ul>
       <ul className="nav-extra py-2">
-        <Link to={"/createplaylist"}>
+        <div className="unselectable">
           <li className="d-flex align-items-center px-3">
             <BsFillPlusSquareFill />
             <span className="nav-page-text px-2">Create Playlist</span>
           </li>
-        </Link>
+        </div>
 
         <Link to={"/likedsongs"}>
           <li className="d-flex align-items-center px-3">
