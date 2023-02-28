@@ -1,11 +1,7 @@
-import { useState } from "react";
-import { Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { MainAlbum } from "../redux/types/Album";
 import BannerNav from "./BannerNav";
 import { BsPlayCircleFill } from "react-icons/bs";
-import AlbumCard from "./AlbumCard";
 import YourLibraryAlbumCard from "./YourLibraryAlbumCard";
 import { SelectedAlbum, TracksDatum } from "../redux/types/SelectedAlbum";
 
@@ -28,8 +24,11 @@ const YourLibrary = () => {
                 <div>Please like some songs before you can see them here</div>
               ) : (
                 <div>
-                  {likedSongs.map((likedSong: number) => (
-                    <div>{likedSong}</div>
+                  {likedSongs.map((likedSong: TracksDatum) => (
+                    <div>
+                      <span>{likedSong.artist.name} - </span>
+                      <span>{likedSong.title}</span>
+                    </div>
                   ))}
                 </div>
               )}
