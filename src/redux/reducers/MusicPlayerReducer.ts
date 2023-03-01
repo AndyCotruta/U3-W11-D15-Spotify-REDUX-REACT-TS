@@ -12,10 +12,9 @@ import CircularJSON from "circular-json";
 
 const initialState: MusicPlayerType = {
   currentTrackIndex: 0,
-  currentTrack: {} as TracksDatum,
+  currentTrack: null,
   audioArray: [],
   isPlaying: false,
-  isPause: false,
 };
 
 const musicPlayerReducer = (state = initialState, action: AnyAction) => {

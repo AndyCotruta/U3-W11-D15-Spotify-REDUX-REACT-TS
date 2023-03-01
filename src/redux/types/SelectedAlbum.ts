@@ -26,7 +26,7 @@ export interface SelectedAlbum {
   contributors: Contributor[];
   artist: Artist;
   type: string;
-  tracks: Tracks;
+  tracks: Tracks | null;
 }
 
 export interface Artist {
@@ -70,7 +70,7 @@ export interface ArtistElement {
 }
 
 export interface Tracks {
-  data: TracksDatum[];
+  data: TracksDatum[] | null;
 }
 
 export interface TracksDatum {

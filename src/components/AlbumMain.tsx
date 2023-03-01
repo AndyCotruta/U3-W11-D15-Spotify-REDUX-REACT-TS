@@ -108,7 +108,6 @@ const AlbumMain = () => {
   const isPlaying = useSelector(
     (state: RootState) => state.musicPlayer.isPlaying
   );
-  const isPause = useSelector((state: RootState) => state.musicPlayer.isPause);
   const audioArray = useSelector(
     (state: RootState) => state.musicPlayer.audioArray
   );
@@ -123,6 +122,7 @@ const AlbumMain = () => {
     );
     console.log(audioElements);
     setTrackArray(audioElements);
+    // dispatch({ type: SET_AUDIO_ARRAY, payload: audioElements });
     dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: 0 });
     dispatch({
       type: SET_CURRENT_TRACK,
@@ -154,6 +154,10 @@ const AlbumMain = () => {
       }
       if (currentTrackIndex === trackArray.length) {
         dispatch({ type: SET_IS_PLAYING, payload: false });
+        dispatch({
+          type: SET_CURRENT_TRACK_INDEX,
+          payload: 0,
+        });
       }
     } else if (
       !isPlaying &&
@@ -191,44 +195,6 @@ const AlbumMain = () => {
     });
     dispatch({ type: SET_IS_PLAYING, payload: true });
   };
-
-  // let index = currentTrackIndex;
-  // const audioArray: HTMLAudioElement[] = [];
-  // tracksArray.data.forEach((track) => {
-  //   const audio = new Audio(track.preview);
-  //   audioArray.push(audio);
-  // });
-
-  // if (isPause === true) {
-  //   dispatch({ type: SET_IS_PLAYING, payload: false });
-  //   audioArray[currentTrackIndex].pause();
-  // }
-  // dispatch({ type: SET_AUDIO_ARRAY, payload: audioArray });
-  // if (isPause === false) {
-  //   dispatch({ type: SET_CURRENT_TRACK, payload: tracksArray.data[index] });
-  //   dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: index });
-  //   audioArray[index].play();
-  //   audioArray.forEach((audio) => {
-  //     audio.addEventListener("ended", () => {
-  //       index++;
-  //       if (index < audioArray.length) {
-  //         console.log("Index when playing tracks: ", index);
-
-  //         dispatch({ type: SET_IS_PLAYING, payload: true });
-  //         dispatch({
-  //           type: SET_CURRENT_TRACK,
-  //           payload: tracksArray.data[index],
-  //         });
-  //         dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: index });
-  //         audioArray[index].play();
-  //       }
-  //       if (index === audioArray.length) {
-  //         dispatch({ type: SET_IS_PLAYING, payload: false });
-  //         dispatch({ type: SET_CURRENT_TRACK, payload: {} });
-  //       }
-  //     });
-  //   });
-  // }
 
   return (
     <div style={style} className="center-section text-white">
