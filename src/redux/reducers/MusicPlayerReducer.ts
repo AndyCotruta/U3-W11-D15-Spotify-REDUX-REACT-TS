@@ -3,16 +3,19 @@ import {
   SET_AUDIO_ARRAY,
   SET_CURRENT_TRACK,
   SET_CURRENT_TRACK_INDEX,
+  SET_IS_PAUSE,
   SET_IS_PLAYING,
 } from "../actions/actions";
 import { MusicPlayerType } from "../types/MusicPlayerType";
 import { TracksDatum } from "../types/SelectedAlbum";
+import CircularJSON from "circular-json";
 
 const initialState: MusicPlayerType = {
   currentTrackIndex: 0,
   currentTrack: {} as TracksDatum,
-  audioArray: [] as HTMLAudioElement[],
+  audioArray: [],
   isPlaying: false,
+  isPause: false,
 };
 
 const musicPlayerReducer = (state = initialState, action: AnyAction) => {
@@ -42,6 +45,13 @@ const musicPlayerReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         isPlaying: action.payload,
+      };
+    }
+
+    case SET_IS_PAUSE: {
+      return {
+        ...state,
+        isPause: action.payload,
       };
     }
 

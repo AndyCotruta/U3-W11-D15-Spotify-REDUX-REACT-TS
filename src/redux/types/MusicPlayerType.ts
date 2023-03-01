@@ -5,4 +5,5 @@ export interface MusicPlayerType {
   currentTrack: TracksDatum;
   audioArray: HTMLAudioElement[];
   isPlaying: boolean;
+  isPause: boolean;
 }

@@ -4,16 +4,17 @@ import { useParams } from "react-router-dom";
 import { RootState } from "../redux/store";
 import BannerNav from "./BannerNav";
 import TracksLi from "./TracksLi";
-import { BsHeart, BsThreeDots, BsHeartFill } from "react-icons/bs";
+import { BsHeart, BsThreeDots, BsHeartFill, BsPauseFill } from "react-icons/bs";
 import { ReactComponent as Play } from "./icons/play.svg";
 import { useEffect, useState } from "react";
 import {
   ADD_LIKED_ALBUMS,
   REMOVE_LIKED_ALBUMS,
-  SET_AUDIO_ARRAY,
   SET_CURRENT_TRACK,
   SET_CURRENT_TRACK_INDEX,
   SET_IS_PLAYING,
+  SET_IS_PAUSE,
+  SET_AUDIO_ARRAY,
 } from "../redux/actions/actions";
 import { MainAlbum } from "../redux/types/Album";
 import { Tracks, TracksDatum } from "../redux/types/SelectedAlbum";
@@ -33,7 +34,6 @@ const AlbumMain = () => {
   const dispatch = useDispatch();
 
   const imageElement = mainAlbum.cover_medium;
-
   interface AverageColor {
     red: number;
     green: number;
@@ -102,88 +102,134 @@ const AlbumMain = () => {
     transition: `all 0.9s ease-in-out`,
   };
 
-  const currentIndex = useSelector(
+  const currentTrackIndex = useSelector(
     (state: RootState) => state.musicPlayer.currentTrackIndex
   );
+  const isPlaying = useSelector(
+    (state: RootState) => state.musicPlayer.isPlaying
+  );
+  const isPause = useSelector((state: RootState) => state.musicPlayer.isPause);
+  const audioArray = useSelector(
+    (state: RootState) => state.musicPlayer.audioArray
+  );
 
-  const playAlbum = (tracksArray: Tracks) => {
-    let index = 0;
-    const audioArray: HTMLAudioElement[] = [];
-    tracksArray.data.forEach((track) => {
-      const audio = new Audio(track.preview);
-      audioArray.push(audio);
+  const [trackArray, setTrackArray] = useState<HTMLAudioElement[]>([]);
+  const tracksArray = mainAlbum.tracks;
+
+  useEffect(() => {
+    // Create audio elements for each track
+    const audioElements = tracksArray.data.map(
+      (track: TracksDatum) => new Audio(track.preview)
+    );
+    console.log(audioElements);
+    setTrackArray(audioElements);
+    dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: 0 });
+    dispatch({
+      type: SET_CURRENT_TRACK,
+      payload: tracksArray.data[currentTrackIndex],
     });
-    // dispatch({ type: SET_AUDIO_ARRAY, payload: audioArray });
+  }, []);
+  useEffect(() => {
+    // Pause or play the current track when the isPlaying state changes
+    if (isPlaying && trackArray.length > 0) {
+      if (currentTrackIndex < trackArray.length) {
+        trackArray[currentTrackIndex].play();
+
+        // Set up event listeners to update state
+        trackArray.forEach((element: HTMLAudioElement) =>
+          element.addEventListener("ended", () => {
+            const nextTrackIndex = currentTrackIndex + 1;
+            dispatch({
+              type: SET_CURRENT_TRACK_INDEX,
+              payload: nextTrackIndex,
+            });
+            if (nextTrackIndex !== trackArray.length) {
+              dispatch({
+                type: SET_CURRENT_TRACK,
+                payload: tracksArray.data[nextTrackIndex],
+              });
+            }
+          })
+        );
+      }
+      if (currentTrackIndex === trackArray.length) {
+        dispatch({ type: SET_IS_PLAYING, payload: false });
+      }
+    } else if (
+      !isPlaying &&
+      trackArray.length > 0 &&
+      currentTrackIndex !== trackArray.length
+    ) {
+      trackArray[currentTrackIndex].pause();
+    }
+  }, [isPlaying, currentTrackIndex]);
+  const handlePlay = () => {
     dispatch({ type: SET_IS_PLAYING, payload: true });
-    dispatch({ type: SET_CURRENT_TRACK, payload: tracksArray.data[index] });
-    dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: index });
-    audioArray[index].play();
-    audioArray.forEach((audio) => {
-      audio.addEventListener("ended", () => {
-        index++;
-        if (index < audioArray.length) {
-          console.log("Index when playing tracks: ", index);
-
-          dispatch({ type: SET_IS_PLAYING, payload: true });
-          dispatch({
-            type: SET_CURRENT_TRACK,
-            payload: tracksArray.data[index],
-          });
-          dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: index });
-          audioArray[index].play();
-        }
-        if (index === audioArray.length) {
-          dispatch({ type: SET_IS_PLAYING, payload: false });
-          dispatch({ type: SET_CURRENT_TRACK, payload: {} });
-        }
-      });
-    });
   };
 
-  //     // Play the first track
-  //     audioElements[0].play();
+  const handlePause = () => {
+    dispatch({ type: SET_IS_PLAYING, payload: false });
+  };
 
-  //     // Set up event listeners to update state
-  //     audioElements[currentTrackIndex].addEventListener("ended", () => {
-  //       const nextTrackIndex = (currentTrackIndex + 1) % audioElements.length;
-  //       dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: nextTrackIndex });
+  const handlePrevious = () => {
+    const previousTrackIndex =
+      (currentTrackIndex - 1 + trackArray.length) % trackArray.length;
+    dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: previousTrackIndex });
+    dispatch({
+      type: SET_CURRENT_TRACK,
+      payload: tracksArray.data[previousTrackIndex],
+    });
+    dispatch({ type: SET_IS_PLAYING, payload: true });
+  };
+
+  const handleNext = () => {
+    const nextTrackIndex = (currentTrackIndex + 1) % trackArray.length;
+    dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: nextTrackIndex });
+    dispatch({
+      type: SET_CURRENT_TRACK,
+      payload: tracksArray.data[nextTrackIndex],
+    });
+    dispatch({ type: SET_IS_PLAYING, payload: true });
+  };
+
+  // let index = currentTrackIndex;
+  // const audioArray: HTMLAudioElement[] = [];
+  // tracksArray.data.forEach((track) => {
+  //   const audio = new Audio(track.preview);
+  //   audioArray.push(audio);
+  // });
+
+  // if (isPause === true) {
+  //   dispatch({ type: SET_IS_PLAYING, payload: false });
+  //   audioArray[currentTrackIndex].pause();
+  // }
+  // dispatch({ type: SET_AUDIO_ARRAY, payload: audioArray });
+  // if (isPause === false) {
+  //   dispatch({ type: SET_CURRENT_TRACK, payload: tracksArray.data[index] });
+  //   dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: index });
+  //   audioArray[index].play();
+  //   audioArray.forEach((audio) => {
+  //     audio.addEventListener("ended", () => {
+  //       index++;
+  //       if (index < audioArray.length) {
+  //         console.log("Index when playing tracks: ", index);
+
+  //         dispatch({ type: SET_IS_PLAYING, payload: true });
+  //         dispatch({
+  //           type: SET_CURRENT_TRACK,
+  //           payload: tracksArray.data[index],
+  //         });
+  //         dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: index });
+  //         audioArray[index].play();
+  //       }
+  //       if (index === audioArray.length) {
+  //         dispatch({ type: SET_IS_PLAYING, payload: false });
+  //         dispatch({ type: SET_CURRENT_TRACK, payload: {} });
+  //       }
   //     });
-  //   }, []);
+  //   });
+  // }
 
-  //   useEffect(() => {
-  //     // Pause or play the current track when the isPlaying state changes
-  //     if (isPlaying) {
-  //       audioArray[currentTrackIndex].play();
-  //     } else {
-  //       audioArray[currentTrackIndex].pause();
-  //     }
-  //   }, [isPlaying]);
-
-  //   // Play the current track
-  //   const handlePlay = () => {
-  //     dispatch({ type: SET_IS_PLAYING, payload: true });
-  //   };
-
-  //   // Pause the current track
-  //   const handlePause = () => {
-  //     dispatch({ type: SET_IS_PLAYING, payload: false });
-  //   };
-
-  //   // Play the previous track
-  //   const handlePrevious = () => {
-  //     const previousTrackIndex =
-  //       (currentTrackIndex - 1 + audioArray.length) % audioArray.length;
-  //     dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: previousTrackIndex });
-  //     dispatch({ type: SET_IS_PLAYING, payload: true });
-  //   };
-
-  //   // Play the next track
-  //   const handleNext = () => {
-  //     const nextTrackIndex = (currentTrackIndex + 1) % audioArray.length;
-  //     dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: nextTrackIndex });
-  //     dispatch({ type: SET_IS_PLAYING, payload: true });
-  //   };
-  // };
   return (
     <div style={style} className="center-section text-white">
       <BannerNav />
@@ -221,13 +267,31 @@ const AlbumMain = () => {
       </div>
       <div className="d-flex align-items-center px-3">
         <div className="big-play  my-3">
-          <Play
-            className="big-play-triangle"
-            onClick={() => {
-              const tracksArray = mainAlbum.tracks;
-              playAlbum(tracksArray);
-            }}
-          />
+          {isPlaying ? (
+            <div
+              onClick={() => {
+                // const tracksArray = mainAlbum.tracks;
+                // dispatch({ type: SET_IS_PAUSE, payload: true });
+                // playAlbum(tracksArray);
+                handlePause();
+              }}
+            >
+              <BsPauseFill />
+            </div>
+          ) : (
+            <div>
+              <Play
+                className="big-play-triangle"
+                onClick={() => {
+                  // const tracksArray = mainAlbum.tracks;
+                  // dispatch({ type: SET_IS_PAUSE, payload: false });
+                  // dispatch({ type: SET_IS_PLAYING, payload: true });
+                  // playAlbum(tracksArray);
+                  handlePlay();
+                }}
+              />
+            </div>
+          )}
         </div>
         <div className="px-4 like-album">
           {isLiked ? (
