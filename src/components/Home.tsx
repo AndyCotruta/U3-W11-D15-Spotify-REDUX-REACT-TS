@@ -1,13 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { HomeType } from "../redux/types/HomeType";
 import {
   ADD_GOOD_MORNING,
   ADD_RECENTLY_PLAYED,
   ADD_SHOWS_TO_TRY,
   fetchAlbumAction,
 } from "../redux/actions/actions";
-import { Row } from "react-bootstrap";
 import AlbumCard from "./AlbumCard";
 import { MainAlbum } from "../redux/types/Album";
 import BannerNav from "./BannerNav";
@@ -28,19 +26,20 @@ const Home = () => {
   const query3: string = "luis";
   const endPoint: string =
     "https://striveschool-api.herokuapp.com/api/deezer/search?q=";
-  const options = {
-    method: "GET",
-    headers: {
-      "X-RapidAPI-Key": "4fb92d580fmsh29489d65e968a28p1565bbjsncea4009bc4b4",
-      "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
-    },
-  };
 
   useEffect(() => {
+    if (!query1 || !query2 || !query3) return
+    const options = {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": "4fb92d580fmsh29489d65e968a28p1565bbjsncea4009bc4b4",
+        "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
+      },
+    };
     dispatch(fetchAlbumAction(endPoint, query1, options, action1));
     dispatch(fetchAlbumAction(endPoint, query2, options, action2));
     dispatch(fetchAlbumAction(endPoint, query3, options, action3));
-  }, []);
+  }, [action1, action2, action3, dispatch]);
 
   return (
     <div className="center-section">

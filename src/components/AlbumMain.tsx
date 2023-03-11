@@ -1,6 +1,5 @@
 import { format, parseISO, secondsToMinutes } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { RootState } from "../redux/store";
 import BannerNav from "./BannerNav";
 import TracksLi from "./TracksLi";
@@ -13,13 +12,13 @@ import {
   SET_CURRENT_TRACK,
   SET_CURRENT_TRACK_INDEX,
   SET_IS_PLAYING,
-  SET_IS_PAUSE,
-  SET_AUDIO_ARRAY,
 } from "../redux/actions/actions";
 import { MainAlbum } from "../redux/types/Album";
-import { Tracks, TracksDatum } from "../redux/types/SelectedAlbum";
+import { TracksDatum } from "../redux/types/SelectedAlbum";
+import useAverageColor from "./hooks/useAverageColor";
 
 const AlbumMain = () => {
+  console.log('RENDER')
   const mainAlbum = useSelector((state: RootState) => state.album.album);
   const likedAlbums = useSelector(
     (state: RootState) => state.yourLibrary.albums
@@ -34,64 +33,6 @@ const AlbumMain = () => {
   const dispatch = useDispatch();
 
   const imageElement = mainAlbum.cover_medium;
-  interface AverageColor {
-    red: number;
-    green: number;
-    blue: number;
-  }
-
-  function useAverageColor(imageElement: string): AverageColor | null {
-    const [averageColor, setAverageColor] = useState<AverageColor | null>(null);
-
-    const getAverageColor = async () => {
-      const img = new Image();
-      img.crossOrigin = "anonymous";
-      img.src = imageElement;
-
-      await new Promise((resolve) => {
-        img.onload = resolve;
-      });
-
-      const canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-
-      const ctx = canvas.getContext("2d");
-      if (!ctx) {
-        throw new Error("Unable to get context");
-      }
-
-      ctx.drawImage(img, 0, 0);
-
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const data = imageData.data;
-
-      let red = 0;
-      let green = 0;
-      let blue = 0;
-
-      for (let i = 0; i < data.length; i += 4) {
-        red += data[i];
-        green += data[i + 1];
-        blue += data[i + 2];
-      }
-
-      const pixels = data.length / 4;
-      const averageRed = Math.round(red / pixels);
-      const averageGreen = Math.round(green / pixels);
-      const averageBlue = Math.round(blue / pixels);
-
-      setAverageColor({
-        red: averageRed,
-        green: averageGreen,
-        blue: averageBlue,
-      });
-    };
-
-    getAverageColor();
-
-    return averageColor;
-  }
 
   const averageColor = useAverageColor(imageElement);
 
@@ -128,7 +69,7 @@ const AlbumMain = () => {
       type: SET_CURRENT_TRACK,
       payload: tracksArray.data[currentTrackIndex],
     });
-  }, []);
+  }, [currentTrackIndex, dispatch, tracksArray.data]);
   useEffect(() => {
     // Pause or play the current track when the isPlaying state changes
     if (isPlaying && trackArray.length > 0) {
@@ -166,7 +107,7 @@ const AlbumMain = () => {
     ) {
       trackArray[currentTrackIndex].pause();
     }
-  }, [isPlaying, currentTrackIndex]);
+  }, [isPlaying, currentTrackIndex, trackArray, dispatch, tracksArray.data]);
   const handlePlay = () => {
     dispatch({ type: SET_IS_PLAYING, payload: true });
   };
@@ -204,7 +145,7 @@ const AlbumMain = () => {
           <img
             src={mainAlbum && mainAlbum.cover}
             className="rendered-image"
-            alt="album-image"
+            alt="album cover"
           />
         </div>
         <div className="album-details px-3">

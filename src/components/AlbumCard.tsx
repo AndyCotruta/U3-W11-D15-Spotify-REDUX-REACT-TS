@@ -1,10 +1,9 @@
 import { MainAlbum } from "../redux/types/Album";
 import { BsPlayCircleFill } from "react-icons/bs";
-import { Card, Button } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ADD_MAIN_ALBUM, fetchMainAlbum } from "../redux/actions/actions";
-import { useEffect } from "react";
 
 interface AlbumProps {
   albumData: MainAlbum;
