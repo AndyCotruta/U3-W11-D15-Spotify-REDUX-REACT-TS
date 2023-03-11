@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import {
   ADD_LIKED_ALBUMS,
   REMOVE_LIKED_ALBUMS,
+  SET_AUDIO_ARRAY,
   SET_CURRENT_TRACK,
   SET_CURRENT_TRACK_INDEX,
   SET_IS_PLAYING,
@@ -18,7 +19,6 @@ import { TracksDatum } from "../redux/types/SelectedAlbum";
 import useAverageColor from "./hooks/useAverageColor";
 
 const AlbumMain = () => {
-  console.log('RENDER')
   const mainAlbum = useSelector((state: RootState) => state.album.album);
   const likedAlbums = useSelector(
     (state: RootState) => state.yourLibrary.albums
@@ -63,7 +63,7 @@ const AlbumMain = () => {
     );
     console.log(audioElements);
     setTrackArray(audioElements);
-    // dispatch({ type: SET_AUDIO_ARRAY, payload: audioElements });
+    dispatch({ type: SET_AUDIO_ARRAY, payload: audioElements });
     dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: 0 });
     dispatch({
       type: SET_CURRENT_TRACK,
@@ -227,7 +227,7 @@ const AlbumMain = () => {
       <ul className="track-list px-3">
         {mainAlbum &&
           mainAlbum.tracks.data.map((track: any, i: number) => (
-            <TracksLi trackData={track} index={i} />
+            <TracksLi key={i} trackData={track} index={i} />
           ))}
       </ul>
     </div>
