@@ -116,7 +116,7 @@ const AlbumMain = () => {
         currentTrack.pause();
       }
     }
-  }, [currentTrackIndex]);
+  }, [isPlaying, currentTrackIndex]);
   const handlePlay = () => {
     dispatch({ type: SET_IS_PLAYING, payload: true });
   };
