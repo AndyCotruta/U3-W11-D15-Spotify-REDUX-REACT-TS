@@ -16,7 +16,7 @@ const initialState: MusicPlayerType = {
   currentTrack: null,
   audioArray: [],
   isPlaying: false,
-  currentAudio: null,
+  isPause: false,
 };
 
 const musicPlayerReducer = (state = initialState, action: AnyAction) => {

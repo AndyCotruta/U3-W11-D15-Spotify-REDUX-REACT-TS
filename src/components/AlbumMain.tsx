@@ -68,7 +68,7 @@ const AlbumMain = () => {
 
   useEffect(() => {
     // Pause or play the current track when the isPlaying state changes
-    if (audioArray.length > 0) {
+    if (audioArray.length > 0 && currentTrackIndex < audioArray.length) {
       //if we have an audio Array, create the current track
       const currentTrack = new Audio(audioArray[currentTrackIndex].preview);
 
@@ -107,6 +107,7 @@ const AlbumMain = () => {
         });
       } else if (!isPlaying) {
         //if isPlaying is false, we pause the music
+
         console.log(
           "We should pause this track: ",
           currentTrack,
@@ -117,6 +118,7 @@ const AlbumMain = () => {
       }
     }
   }, [isPlaying, currentTrackIndex]);
+
   const handlePlay = () => {
     dispatch({ type: SET_IS_PLAYING, payload: true });
   };
