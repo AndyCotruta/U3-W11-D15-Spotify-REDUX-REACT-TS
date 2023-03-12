@@ -10,6 +10,7 @@ import {
   ADD_LIKED_ALBUMS,
   REMOVE_LIKED_ALBUMS,
   SET_AUDIO_ARRAY,
+  SET_CURRENT_AUDIO,
   SET_CURRENT_TRACK,
   SET_CURRENT_TRACK_INDEX,
   SET_IS_PLAYING,
@@ -57,57 +58,65 @@ const AlbumMain = () => {
   const tracksArray = mainAlbum.tracks;
 
   useEffect(() => {
-    // Create audio elements for each track
-    const audioElements = tracksArray.data.map(
-      (track: TracksDatum) => new Audio(track.preview)
-    );
-    console.log(audioElements);
-    setTrackArray(audioElements);
-    dispatch({ type: SET_AUDIO_ARRAY, payload: audioElements });
+    dispatch({ type: SET_AUDIO_ARRAY, payload: tracksArray.data });
     dispatch({ type: SET_CURRENT_TRACK_INDEX, payload: 0 });
     dispatch({
       type: SET_CURRENT_TRACK,
-      payload: tracksArray.data[currentTrackIndex],
+      payload: tracksArray.data[0],
     });
-  }, [currentTrackIndex, dispatch, tracksArray.data]);
+  }, [mainAlbum]);
+
   useEffect(() => {
     // Pause or play the current track when the isPlaying state changes
-    if (isPlaying && trackArray.length > 0) {
-      if (currentTrackIndex < trackArray.length) {
-        trackArray[currentTrackIndex].play();
+    if (audioArray.length > 0) {
+      //if we have an audio Array, create the current track
+      const currentTrack = new Audio(audioArray[currentTrackIndex].preview);
+
+      if (isPlaying && currentTrackIndex < audioArray.length) {
+        //if isPlaying is true, and we are not at the end of the audio array, play the music
+        console.log(
+          "We are now playing this track: ",
+          currentTrack,
+          " because isPlaying is: ",
+          isPlaying
+        );
+        currentTrack.play();
 
         // Set up event listeners to update state
-        trackArray.forEach((element: HTMLAudioElement) =>
-          element.addEventListener("ended", () => {
-            const nextTrackIndex = currentTrackIndex + 1;
+        currentTrack.addEventListener("ended", () => {
+          const nextTrackIndex = currentTrackIndex + 1;
+          dispatch({
+            type: SET_CURRENT_TRACK_INDEX,
+            payload: nextTrackIndex,
+          });
+          if (nextTrackIndex !== audioArray.length) {
+            //keeping currentTrack=last audio track even if currentTrackIndex=audioArray.length
             dispatch({
-              type: SET_CURRENT_TRACK_INDEX,
-              payload: nextTrackIndex,
+              type: SET_CURRENT_TRACK,
+              payload: tracksArray.data[nextTrackIndex],
             });
-            if (nextTrackIndex !== trackArray.length) {
-              dispatch({
-                type: SET_CURRENT_TRACK,
-                payload: tracksArray.data[nextTrackIndex],
-              });
-            }
-          })
-        );
+          }
+        });
       }
-      if (currentTrackIndex === trackArray.length) {
+      if (currentTrackIndex === audioArray.length) {
+        //resetting the currentTrackIndex to 0 if we end the track list
         dispatch({ type: SET_IS_PLAYING, payload: false });
         dispatch({
           type: SET_CURRENT_TRACK_INDEX,
           payload: 0,
         });
+      } else if (!isPlaying) {
+        //if isPlaying is false, we pause the music
+        console.log(
+          "We should pause this track: ",
+          currentTrack,
+          " because isPlaying is: ",
+          isPlaying
+        );
+        currentTrack.pause();
       }
-    } else if (
-      !isPlaying &&
-      trackArray.length > 0 &&
-      currentTrackIndex !== trackArray.length
-    ) {
-      trackArray[currentTrackIndex].pause();
     }
-  }, [isPlaying, currentTrackIndex, trackArray, dispatch, tracksArray.data]);
+  }, [currentTrackIndex]);
   const handlePlay = () => {
     dispatch({ type: SET_IS_PLAYING, payload: true });
   };
@@ -140,6 +149,7 @@ const AlbumMain = () => {
   return (
     <div style={style} className="center-section text-white">
       <BannerNav />
+
       <div className="d-flex mt-5">
         <div id="target" className="card-album px-3">
           <img

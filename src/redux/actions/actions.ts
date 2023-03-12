@@ -40,6 +40,7 @@ export const SET_CURRENT_TRACK = "SET_CURRENT_TRACK";
 export const SET_AUDIO_ARRAY = "SET_AUDIO_ARRAY";
 export const SET_IS_PLAYING = "SET_IS_PLAYING";
 export const SET_IS_PAUSE = "SET_IS_PAUSE";
+export const SET_CURRENT_AUDIO = "SET_CURRENT_AUDIO";
 
 export const fetchAlbumAction: any =
   (endPoint: string, query: string, options: any, action: string) =>

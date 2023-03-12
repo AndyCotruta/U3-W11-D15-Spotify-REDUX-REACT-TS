@@ -1,6 +1,7 @@
 import { AnyAction } from "redux";
 import {
   SET_AUDIO_ARRAY,
+  SET_CURRENT_AUDIO,
   SET_CURRENT_TRACK,
   SET_CURRENT_TRACK_INDEX,
   SET_IS_PAUSE,
@@ -15,6 +16,7 @@ const initialState: MusicPlayerType = {
   currentTrack: null,
   audioArray: [],
   isPlaying: false,
+  currentAudio: null,
 };
 
 const musicPlayerReducer = (state = initialState, action: AnyAction) => {
@@ -23,6 +25,13 @@ const musicPlayerReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         currentTrack: action.payload,
+      };
+    }
+
+    case SET_CURRENT_AUDIO: {
+      return {
+        ...state,
+        currentAudio: action.payload,
       };
     }
 
