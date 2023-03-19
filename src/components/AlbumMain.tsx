@@ -53,6 +53,9 @@ const AlbumMain = () => {
   const audioArray = useSelector(
     (state: RootState) => state.musicPlayer.audioArray
   );
+  const currentTrack = useSelector(
+    (state: RootState) => state.musicPlayer.currentTrack
+  );
 
   const [trackArray, setTrackArray] = useState<HTMLAudioElement[]>([]);
   const tracksArray = mainAlbum.tracks;
@@ -70,20 +73,21 @@ const AlbumMain = () => {
     // Pause or play the current track when the isPlaying state changes
     if (audioArray.length > 0 && currentTrackIndex < audioArray.length) {
       //if we have an audio Array, create the current track
-      const currentTrack = new Audio(audioArray[currentTrackIndex].preview);
+
+      const currentAudio = new Audio(currentTrack.preview);
 
       if (isPlaying && currentTrackIndex < audioArray.length) {
         //if isPlaying is true, and we are not at the end of the audio array, play the music
         console.log(
           "We are now playing this track: ",
-          currentTrack,
+          currentAudio,
           " because isPlaying is: ",
           isPlaying
         );
-        currentTrack.play();
+        currentAudio.play();
 
         // Set up event listeners to update state
-        currentTrack.addEventListener("ended", () => {
+        currentAudio.addEventListener("ended", () => {
           const nextTrackIndex = currentTrackIndex + 1;
           dispatch({
             type: SET_CURRENT_TRACK_INDEX,
@@ -110,11 +114,11 @@ const AlbumMain = () => {
 
         console.log(
           "We should pause this track: ",
-          currentTrack,
+          currentAudio,
           " because isPlaying is: ",
           isPlaying
         );
-        currentTrack.pause();
+        currentAudio.pause();
       }
     }
   }, [isPlaying, currentTrackIndex]);
@@ -206,6 +210,7 @@ const AlbumMain = () => {
                   // dispatch({ type: SET_IS_PAUSE, payload: false });
                   // dispatch({ type: SET_IS_PLAYING, payload: true });
                   // playAlbum(tracksArray);
+
                   handlePlay();
                 }}
               />
