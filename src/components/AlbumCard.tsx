@@ -26,28 +26,22 @@ const AlbumCard = ({ albumData }: AlbumProps) => {
   //   dispatch(fetchMainAlbum(endPoint, options, action));
   // }, []);
   return (
-    <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4">
-      <Card
-        onClick={async () => {
-          await dispatch(fetchMainAlbum(endPoint, options, action));
-          navigate(`/album/${albumData.album.id}`);
-        }}
-      >
-        <Card.Img
-          className="cardImg"
-          variant="top"
-          src={albumData.album.cover}
-        />
+    <Card
+      onClick={async () => {
+        await dispatch(fetchMainAlbum(endPoint, options, action));
+        navigate(`/album/${albumData.album.id}`);
+      }}
+    >
+      <Card.Img className="cardImg" variant="top" src={albumData.album.cover} />
 
-        <Card.Body>
-          <Card.Title>{albumData.album.title}</Card.Title>
-          <Card.Text>{albumData.artist.name}</Card.Text>
-        </Card.Body>
-        <div className="greenPlayBtn">
-          <BsPlayCircleFill className="greenPlay" />
-        </div>
-      </Card>
-    </div>
+      <Card.Body>
+        <Card.Title>{albumData.album.title}</Card.Title>
+        <Card.Text>{albumData.artist.name}</Card.Text>
+      </Card.Body>
+      <div className="greenPlayBtn">
+        <BsPlayCircleFill className="greenPlay" />
+      </div>
+    </Card>
   );
 };
 

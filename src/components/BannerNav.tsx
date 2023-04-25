@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   ADD_LIBRARY_TABS,
   ADD_SEARCH_RESULTS,
   fetchAlbumAction,
 } from "../redux/actions/actions";
 import { AiOutlineMenu } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
+import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
 
 interface BannerNavProps {
   showMobileNav: boolean;
@@ -16,6 +18,7 @@ interface BannerNavProps {
 const BannerNav = (props: BannerNavProps) => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [query, setQuery] = useState("");
 
   const endPoint: string =
@@ -45,7 +48,28 @@ const BannerNav = (props: BannerNavProps) => {
 
   return (
     <div className="p-3 bannerNav text-white d-flex align-items-center justify-content-between">
-      <div className="web-buttons">Buttons</div>
+      <div className="web-buttons">
+        <div className="d-flex">
+          <div
+            className="banner-nav-arrows"
+            onClick={() => {
+              if (location.pathname !== "/") {
+                navigate(-1);
+              }
+            }}
+          >
+            <BsArrowLeftCircle />
+          </div>
+          <div
+            className="banner-nav-arrows"
+            onClick={() => {
+              navigate(+1);
+            }}
+          >
+            <BsArrowRightCircle />
+          </div>
+        </div>
+      </div>
       <div
         className={
           props.showMobileNav ? "mobile-buttons-moved" : "mobile-buttons"
@@ -74,7 +98,7 @@ const BannerNav = (props: BannerNavProps) => {
         }
       >
         <div
-          className="l-tabs px-3"
+          className={props.showMobileNav ? "hidden" : "l-tabs"}
           onClick={() => {
             dispatch({ type: ADD_LIBRARY_TABS, payload: "Playlists" });
           }}
@@ -82,7 +106,7 @@ const BannerNav = (props: BannerNavProps) => {
           Playlists
         </div>
         <div
-          className="l-tabs px-3"
+          className={props.showMobileNav ? "hidden" : "l-tabs"}
           onClick={() => {
             dispatch({ type: ADD_LIBRARY_TABS, payload: "Podcasts" });
           }}
@@ -90,7 +114,7 @@ const BannerNav = (props: BannerNavProps) => {
           Podcasts
         </div>
         <div
-          className="l-tabs px-3"
+          className={props.showMobileNav ? "hidden" : "l-tabs"}
           onClick={() => {
             dispatch({ type: ADD_LIBRARY_TABS, payload: "Artists" });
           }}
@@ -98,7 +122,7 @@ const BannerNav = (props: BannerNavProps) => {
           Artists
         </div>
         <div
-          className="l-tabs px-3"
+          className={props.showMobileNav ? "hidden" : "l-tabs"}
           onClick={() => {
             dispatch({ type: ADD_LIBRARY_TABS, payload: "Albums" });
           }}
@@ -107,7 +131,9 @@ const BannerNav = (props: BannerNavProps) => {
         </div>
       </div>
 
-      <div>Profile</div>
+      <div className="px-3 profile">
+        <CgProfile />
+      </div>
     </div>
   );
 };

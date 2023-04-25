@@ -44,40 +44,46 @@ const Home = () => {
 
   return (
     <div>
-      <div className="good-morning-section">
-        <h2 className="px-4 mt-5">Good Morning</h2>
-        <div className="good-morning row mx-1">
-          {" "}
+      <div className="good-morning-section pt-3">
+        <h2 className="px-3 mt-5">Good Morning</h2>
+        <div className="row mx-1">
           {goodMorning &&
-            goodMorning
-              .slice(0, 6)
-              .map((album: MainAlbum) => (
-                <AlbumCard albumData={album} key={album.id} />
-              ))}
+            goodMorning.slice(0, 6).map((album: MainAlbum) => (
+              <div
+                className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4"
+                key={album.id}
+              >
+                <AlbumCard albumData={album} />
+              </div>
+            ))}
         </div>
       </div>
       <div className="recently-played-section">
-        <h2 className="px-4">Recently Played</h2>
+        <h2 className="px-3">Recently Played</h2>
         <div className="recently-played row mx-1">
-          {" "}
           {recentlyPlayed &&
-            recentlyPlayed
-              .slice(0, 6)
-              .map((album: MainAlbum) => (
-                <AlbumCard albumData={album} key={album.id} />
-              ))}
+            recentlyPlayed.slice(0, 6).map((album: MainAlbum) => (
+              <div
+                className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4"
+                key={album.id}
+              >
+                <AlbumCard albumData={album} />
+              </div>
+            ))}
         </div>
       </div>
       <div className="shows-to-try-section">
-        <h2 className="px-4">Shows To Try</h2>
+        <h2 className="px-3">Shows To Try</h2>
         <div className="shows-to-try row mx-1">
-          {" "}
           {showsToTry &&
-            showsToTry
-              .slice(0, 6)
-              .map((album: MainAlbum) => (
-                <AlbumCard albumData={album} key={album.id} />
-              ))}
+            showsToTry.slice(0, 6).map((album: MainAlbum) => (
+              <div
+                className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4"
+                key={album.id}
+              >
+                <AlbumCard albumData={album} />
+              </div>
+            ))}
         </div>
       </div>
     </div>

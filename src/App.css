@@ -294,15 +294,29 @@ h2 {
   );
 }
 
+.banner-nav-arrows {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.banner-nav-arrows:hover {
+  transform: scale(1.1);
+}
+
 .mobile-buttons {
   display: none;
+}
+
+.profile {
+  font-size: 1.5rem;
 }
 
 .card {
   border: none !important;
   background-color: #181818 !important;
   color: white;
-  height: 250px;
   padding: 10px;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
@@ -340,10 +354,6 @@ h2 {
 
 .card-text {
   font-size: 12px;
-}
-
-.cardImg {
-  max-width: 200px !important;
 }
 
 .greenPlayBtn {
@@ -499,6 +509,7 @@ h2 {
 .l-tabs {
   transition: all 0.2s ease-in-out;
   cursor: pointer;
+  padding-inline: 1rem;
 }
 
 .l-tabs:hover {
@@ -556,6 +567,7 @@ h2 {
 }
 .liked-songs-header {
   padding-top: 6rem;
+  width: 100%;
 }
 
 .liked-songs-png {
@@ -626,10 +638,17 @@ h2 {
   .mobile-buttons {
     display: block;
     transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
   }
   .mobile-buttons-moved {
+    display: flex;
+    align-items: center;
     transform: translateX(900%);
     transition: all 0.2s ease-in-out;
+  }
+  .l-tabs {
+    padding-inline: 2.5px;
   }
   .song-details {
     display: none !important;
@@ -639,5 +658,8 @@ h2 {
   }
   .song-controls {
     width: 100%;
+  }
+  .LS {
+    font-size: 2rem;
   }
 }
