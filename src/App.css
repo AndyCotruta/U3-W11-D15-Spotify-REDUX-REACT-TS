@@ -664,3 +664,15 @@ h2 {
     font-size: 2rem;
   }
 }
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #00000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: antiquewhite;
+}
