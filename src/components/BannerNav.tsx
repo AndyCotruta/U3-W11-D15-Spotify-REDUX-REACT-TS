@@ -6,6 +6,7 @@ import {
   ADD_SEARCH_RESULTS,
   fetchAlbumAction,
 } from "../redux/actions/actions";
+import { AiOutlineMenu } from "react-icons/ai";
 
 interface BannerNavProps {
   showMobileNav: boolean;
@@ -44,13 +45,18 @@ const BannerNav = (props: BannerNavProps) => {
 
   return (
     <div className="p-3 bannerNav text-white d-flex align-items-center justify-content-between">
+      <div className="web-buttons">Buttons</div>
       <div
+        className={
+          props.showMobileNav ? "mobile-buttons-moved" : "mobile-buttons"
+        }
         onClick={() => {
           props.setShowMobileNav(!props.showMobileNav);
         }}
       >
-        Buttons
+        <AiOutlineMenu />
       </div>
+
       <input
         className={location.pathname === "/search" ? "input" : "hidden"}
         type="text"
