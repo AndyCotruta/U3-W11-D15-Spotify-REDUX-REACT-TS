@@ -11,12 +11,19 @@ import CreatePlaylist from "./components/CreatePlaylist";
 import LikedSongs from "./components/LikedSongs";
 import AlbumMain from "./components/AlbumMain";
 import BannerNav from "./components/BannerNav";
+import { Helmet } from "react-helmet";
 
 function App() {
   const [showMobileNav, setShowMobileNav] = useState(false);
 
   return (
     <BrowserRouter>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Spotify Clone</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+        <meta name="description" content="Spotify Clone" />
+      </Helmet>
       <div className="body">
         <div className="d-flex">
           <LeftNav
