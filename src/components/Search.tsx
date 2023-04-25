@@ -31,9 +31,7 @@ const Search = () => {
   }, []);
 
   return (
-    <div className="center-section">
-      <BannerNav />
-
+    <div className="">
       <h2 className="px-3 mt-5 pt-4">Browse All</h2>
       <div className="browse-all row mx-1">
         {searchResults && searchResults.length === 0

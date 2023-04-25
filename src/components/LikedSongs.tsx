@@ -80,8 +80,7 @@ const LikedSongs = () => {
   };
 
   return (
-    <div style={style} className="center-section text-white">
-      <BannerNav />
+    <div style={style} className="liked-songs text-white">
       <div className="liked-songs-header d-flex px-3">
         <img
           className="liked-songs-png"

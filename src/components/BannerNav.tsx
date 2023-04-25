@@ -7,7 +7,12 @@ import {
   fetchAlbumAction,
 } from "../redux/actions/actions";
 
-const BannerNav = () => {
+interface BannerNavProps {
+  showMobileNav: boolean;
+  setShowMobileNav: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const BannerNav = (props: BannerNavProps) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const [query, setQuery] = useState("");
@@ -39,58 +44,63 @@ const BannerNav = () => {
 
   return (
     <div className="p-3 bannerNav text-white d-flex align-items-center justify-content-between">
-      <div className="d-flex align-items-center">
-        <div> Buttons</div>
-        <input
-          className={location.pathname === "/search" ? "input" : "hidden"}
-          type="text"
-          placeholder="What do you want to listen to?"
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-          }}
-        />
+      <div
+        onClick={() => {
+          props.setShowMobileNav(!props.showMobileNav);
+        }}
+      >
+        Buttons
+      </div>
+      <input
+        className={location.pathname === "/search" ? "input" : "hidden"}
+        type="text"
+        placeholder="What do you want to listen to?"
+        value={query}
+        onChange={(e) => {
+          setQuery(e.target.value);
+        }}
+      />
+      <div
+        className={
+          location.pathname === "/yourlibrary"
+            ? "library-tabs d-flex"
+            : "hidden"
+        }
+      >
         <div
-          className={
-            location.pathname === "/yourlibrary"
-              ? "library-tabs d-flex"
-              : "hidden"
-          }
+          className="l-tabs px-3"
+          onClick={() => {
+            dispatch({ type: ADD_LIBRARY_TABS, payload: "Playlists" });
+          }}
         >
-          <div
-            className="l-tabs px-3"
-            onClick={() => {
-              dispatch({ type: ADD_LIBRARY_TABS, payload: "Playlists" });
-            }}
-          >
-            Playlists
-          </div>
-          <div
-            className="l-tabs px-3"
-            onClick={() => {
-              dispatch({ type: ADD_LIBRARY_TABS, payload: "Podcasts" });
-            }}
-          >
-            Podcasts
-          </div>
-          <div
-            className="l-tabs px-3"
-            onClick={() => {
-              dispatch({ type: ADD_LIBRARY_TABS, payload: "Artists" });
-            }}
-          >
-            Artists
-          </div>
-          <div
-            className="l-tabs px-3"
-            onClick={() => {
-              dispatch({ type: ADD_LIBRARY_TABS, payload: "Albums" });
-            }}
-          >
-            Albums
-          </div>
+          Playlists
+        </div>
+        <div
+          className="l-tabs px-3"
+          onClick={() => {
+            dispatch({ type: ADD_LIBRARY_TABS, payload: "Podcasts" });
+          }}
+        >
+          Podcasts
+        </div>
+        <div
+          className="l-tabs px-3"
+          onClick={() => {
+            dispatch({ type: ADD_LIBRARY_TABS, payload: "Artists" });
+          }}
+        >
+          Artists
+        </div>
+        <div
+          className="l-tabs px-3"
+          onClick={() => {
+            dispatch({ type: ADD_LIBRARY_TABS, payload: "Albums" });
+          }}
+        >
+          Albums
         </div>
       </div>
+
       <div>Profile</div>
     </div>
   );

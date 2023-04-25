@@ -13,8 +13,7 @@ const YourLibrary = () => {
   const likedSongs = useSelector((state: RootState) => state.yourLibrary.songs);
 
   return (
-    <div className="center-section text-white">
-      <BannerNav />
+    <div className="text-white">
       <div className="d-flex flex-column mt-5 px-3">
         <h2 className="py-3">{selectedTab}</h2>
         <div className=" d-flex w-full">

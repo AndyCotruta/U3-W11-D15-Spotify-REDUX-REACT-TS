@@ -1,8 +1,13 @@
+.body {
+  width: 100%;
+  height: 100%;
+}
+
 /* ...........................LeftNav Styling.............................. */
 .left-nav {
   min-width: 250px;
   max-width: 250px;
-  height: 87.9vh;
+  height: 88vh;
   background-color: black;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -64,27 +69,9 @@
 
 /* ...........................MusicPlayer Styling.............................. */
 
-.wrapper1 {
-  width: 100%;
-  z-index: 4;
-}
-
-.wrapper2 {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  background-color: #181818;
-  border-top: 1px solid #282828;
-  display: flex;
-  flex-direction: column;
-  height: auto;
-  min-width: 620px;
-
-  user-select: none;
-}
-
 .now-playing {
   height: 12vh;
-  min-width: 620px;
+  min-width: 320px;
   background-color: #181818;
   color: #847e82;
   display: flex;
@@ -280,7 +267,7 @@ h2 {
 }
 
 .hidden {
-  visibility: hidden;
+  display: none;
 }
 
 .center-section {
@@ -289,7 +276,7 @@ h2 {
     rgba(18, 18, 18, 1) 0%,
     rgba(61, 9, 7, 1) 100%
   ); */
-  height: 87.9vh;
+  height: 88vh;
   width: calc(100% - 250px);
   background-color: rgb(20, 19, 19);
   overflow: auto;
@@ -425,6 +412,11 @@ h2 {
 /* ...........................Search Styling.............................. */
 
 /* ...........................Album/Artist styling.............................. */
+
+.album-main {
+  padding-top: 1rem;
+}
+
 .big-play {
   background-color: #1cdf63;
   width: 56px;
@@ -554,9 +546,12 @@ h2 {
 /* ...........................Your Library styling............................... */
 
 /* ...........................Liked Songs styling............................... */
-
+.liked-songs {
+  height: 100%;
+  width: 100%;
+}
 .liked-songs-header {
-  margin-top: 6rem;
+  padding-top: 6rem;
 }
 
 .liked-songs-png {
@@ -577,4 +572,53 @@ h2 {
 
 .unselectable {
   user-select: none;
+}
+
+/* ...........................Responsive design........................... */
+
+@media screen and (max-width: 768px) {
+  .left-nav {
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    background-color: black;
+    transform: translateX(-100%);
+  }
+  .left-nav-show {
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    background-color: black;
+    width: 50%;
+    padding-top: 3rem;
+  }
+  .left-nav-show a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .left-nav-show ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  .left-nav-show li {
+    list-style-type: none;
+  }
+  .center-section {
+    width: 100%;
+  }
+  .bannerNav {
+    width: 100%;
+    height: 4rem;
+  }
+  .song-details {
+    display: none !important;
+  }
+  .playlist-controls {
+    display: none;
+  }
+  .song-controls {
+    width: 100%;
+  }
 }

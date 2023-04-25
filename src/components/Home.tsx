@@ -43,9 +43,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="center-section">
-      <BannerNav />
-
+    <div>
       <div className="good-morning-section">
         <h2 className="px-4 mt-5">Good Morning</h2>
         <div className="good-morning row mx-1">

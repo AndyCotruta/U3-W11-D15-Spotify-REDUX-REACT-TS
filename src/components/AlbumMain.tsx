@@ -197,9 +197,8 @@ const AlbumMain = () => {
   };
 
   return (
-    <div style={style} className="center-section text-white">
-      <BannerNav />
-      <div className="d-flex mt-5">
+    <div style={style} className="text-white">
+      <div className="d-flex album-main">
         <div id="target" className="card-album px-3">
           <img
             src={mainAlbum && mainAlbum.cover}
