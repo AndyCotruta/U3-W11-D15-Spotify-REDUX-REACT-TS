@@ -321,6 +321,7 @@ h2 {
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   text-align: center;
+  min-height: 240px;
 }
 
 .card:hover {
