@@ -197,7 +197,7 @@ const AlbumMain = () => {
   };
 
   return (
-    <div style={style} className="text-white">
+    <div style={style} className="text-white pt-5">
       <div className="d-flex album-main">
         <div id="target" className="card-album px-3">
           <img
